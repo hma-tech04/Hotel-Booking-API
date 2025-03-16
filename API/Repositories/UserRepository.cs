@@ -32,16 +32,23 @@ public class UserRepository : IUserRepository
     public async Task<IEnumerable<User>> GetAllUserAsync(){
         return await _context.Users.ToListAsync();
     }
-    public async Task<User?> GetUseByIDrAsync(int id) {
+    public async Task<User?> GetUseByIDAsync(int id) {
         var user = await _context.Users.FindAsync(id);
         return user;
     }
     public async Task<User?> GetUserByEmailAsync(string email){
         return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
-    public async Task<User> UpdateUserAsync(User user) {
-        _context.Users.Update(user);
-        await _context.SaveChangesAsync();
-        return user;
+    public async Task<User?> UpdateUserAsync(User user)
+    {
+        var existingUser = await _context.Users.FindAsync(user.UserId);
+        if (existingUser != null)
+        {
+            _context.Entry(existingUser).CurrentValues.SetValues(user);
+            await _context.SaveChangesAsync();
+            return existingUser;
+        }
+        return null; 
     }
+
 }
