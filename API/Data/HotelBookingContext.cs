@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using API.Models;
+using API.Enum;
 
-namespace API.Models;
+namespace API.Data;
 
 public partial class HotelBookingContext : DbContext
 {
@@ -26,10 +26,12 @@ public partial class HotelBookingContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#pragma warning disable CS1030 // #warning directive
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost,1433;Database=HotelBooking;User Id=sa;Password=Minhanh010103;TrustServerCertificate=True;");
-#pragma warning restore CS1030 // #warning directive
+    {
+    #pragma warning disable CS1030 // #warning directive
+    #warning To protect potentially sensitive information in your connection string, you should move it out of source code.
+        optionsBuilder.UseSqlServer("Server=localhost,1433;Database=HotelBooking;User Id=sa;Password=Minhanh010103;TrustServerCertificate=True;");
+    #pragma warning restore CS1030 // #warning directive
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -61,12 +63,21 @@ public partial class HotelBookingContext : DbContext
             entity.Property(e => e.PaymentDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+
             entity.Property(e => e.PaymentMethod)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => (PaymentMethod)System.Enum.Parse(typeof(PaymentMethod), v))
                 .HasMaxLength(50)
                 .IsUnicode(false);
+
             entity.Property(e => e.PaymentStatus)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => (PaymentStatus)System.Enum.Parse(typeof(PaymentStatus), v))
                 .HasMaxLength(50)
                 .IsUnicode(false);
+
 
             entity.HasOne(d => d.Booking).WithMany(p => p.Payments)
                 .HasForeignKey(d => d.BookingId)
@@ -120,6 +131,9 @@ public partial class HotelBookingContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.Role)
+                .HasConversion(
+                    v => v.ToString(), 
+                    v => (UserRole)System.Enum.Parse(typeof(UserRole), v))
                 .HasMaxLength(20)
                 .IsUnicode(false);
         });

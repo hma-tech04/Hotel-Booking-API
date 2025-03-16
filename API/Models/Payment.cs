@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using API.Enum;
 
 namespace API.Models;
 
@@ -13,9 +12,9 @@ public partial class Payment
 
     public decimal PaymentAmount { get; set; }
 
-    public string PaymentMethod { get; set; } = null!;
+    public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Momo;
 
-    public string PaymentStatus { get; set; } = null!;
+    public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
 
     public virtual Booking Booking { get; set; } = null!;
 }
