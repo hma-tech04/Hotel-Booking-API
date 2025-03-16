@@ -1,4 +1,6 @@
-﻿using API.Enum;
+﻿using System;
+using System.Collections.Generic;
+using API.Enum;
 
 namespace API.Models;
 
@@ -15,6 +17,5 @@ public partial class Payment
     public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Momo;
 
     public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
-
     public virtual Booking Booking { get; set; } = null!;
 }

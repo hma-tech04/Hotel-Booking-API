@@ -1,13 +1,23 @@
 namespace API.DTOs.Response;
 public class ApiResponse<T>
 {   
-    public int code { get; set; }
-    public string message { get; set; }
-    public T data { get; set; }
-    public ApiResponse(int code, string message, T data)
+    public int Code { get; set; }
+    public string Message { get; set; }
+    public T? Data { get; set; }
+    public ApiResponse(int Code, string Message, T? Data = default)
     {
-        this.code = code;
-        this.message = message;
-        this.data = data;
+        this.Code = Code;
+        this.Message = Message;
+        this.Data = Data;
     }
+
+    public object GetResponse()
+        {
+            if (Data == null)
+            {
+                return new { Code, Message }; 
+            }
+            
+            return new { Code, Message, Data };  
+        }
 }

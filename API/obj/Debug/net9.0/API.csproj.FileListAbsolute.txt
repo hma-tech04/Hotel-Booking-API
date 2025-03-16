@@ -10,6 +10,7 @@
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Azure.Core.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Azure.Identity.dll
+/Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/BCrypt.Net-Next.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Humanizer.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Microsoft.AspNetCore.OpenApi.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Microsoft.Bcl.AsyncInterfaces.dll
