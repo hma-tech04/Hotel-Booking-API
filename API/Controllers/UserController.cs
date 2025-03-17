@@ -14,26 +14,6 @@ public class UserController : ControllerBase{
         _userService = userService;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetAllUserAsync()
-    {
-        var result = await _userService.GetAllUsersAsync();
-        ApiResponse<IEnumerable<UserDTO>> response = new ApiResponse<IEnumerable<UserDTO>>(200, "Success", result);
-        return Ok(response);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> AddUserAsync(UserRegisterDTO UserRegisterDTO)
-    {
-        if (!ModelState.IsValid)
-        {
-            throw new CustomException(ErrorCode.BadRequest, "Invalid input");
-        }
-        var result = await _userService.AddUserAsync(UserRegisterDTO);
-        ApiResponse<UserDTO> response = new ApiResponse<UserDTO>(200, "Success", result);
-        return Ok(response);
-    }
-
     [HttpGet("id/{id}")]
     public async Task<IActionResult> GetUserByIDAsync(int id)
     {
@@ -61,12 +41,4 @@ public class UserController : ControllerBase{
         ApiResponse<UserDTO> response = new ApiResponse<UserDTO>(200, "Success", result);
         return Ok(response);
     }
-
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteUserByIDAsync(int id){
-        var result = await _userService.DeleteUserAsync(id);
-        ApiResponse<UserDTO> response = new ApiResponse<UserDTO>(200, "Success", result);
-        return Ok(response);
-    }
-
 }

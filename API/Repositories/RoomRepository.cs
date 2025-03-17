@@ -1,0 +1,56 @@
+using API.Data;
+using API.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace API.Repositories
+{
+    public class RoomRepository : IRoomRepository
+    {
+        private readonly HotelBookingContext _context;
+
+        public RoomRepository(HotelBookingContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<IEnumerable<Room>> GetAllRoomAsync()
+        {
+            return await _context.Rooms.Include(r => r.RoomImages).ToListAsync();
+        }
+
+        public async Task<Room?> GetRoomByIDAsync(int id)
+        {
+            return await _context.Rooms.Include(r => r.RoomImages)
+                                       .FirstOrDefaultAsync(r => r.RoomId == id);
+        }
+
+        public async Task<Room> AddRoomAsync(Room room)
+        {
+            _context.Rooms.Add(room);
+            await _context.SaveChangesAsync();
+            return room;
+        }
+
+        public async Task<Room?> UpdateRoomAsync(Room room)
+        {
+            var existingRoom = await _context.Rooms.FindAsync(room.RoomId);
+            if (existingRoom == null)
+                return null;
+
+            _context.Entry(existingRoom).CurrentValues.SetValues(room);
+            await _context.SaveChangesAsync();
+            return existingRoom;
+        }
+
+        public async Task<Room?> DeleteRoomAsync(int id)
+        {
+            var room = await _context.Rooms.FindAsync(id);
+            if (room == null)
+                return null;
+
+            _context.Rooms.Remove(room);
+            await _context.SaveChangesAsync();
+            return room;
+        }
+    }
+}
