@@ -1,8 +1,11 @@
+using System.Text;
 using System.Text.Json.Serialization;
 using API.Data;
 using API.Repositories;
 using API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +18,31 @@ builder.Services.AddDbContext<HotelBookingContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+
+// Config jwt
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+#pragma warning disable CS8604 // Possible null reference argument.
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Secret"]))
+        };
+#pragma warning restore CS8604 // Possible null reference argument.
+    });
+
+
 // add services
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<AdminService>();
+builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Config controller and filter
