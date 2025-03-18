@@ -16,12 +16,11 @@ public class RoomController : ControllerBase
         _roomService = roomService;
     }
 
-    // Lấy danh sách phòng
     [HttpGet]
-    public async Task<IActionResult> GetAllRoomsAsync()
+    public async Task<IActionResult> GetAllRoomsAsync([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
     {
-        var result = await _roomService.GetAllRoomsAsync();
-        ApiResponse<IEnumerable<RoomDTO>> response = new ApiResponse<IEnumerable<RoomDTO>>(200, "Success", result);
+        var result = await _roomService.GetAllRoomsAsync(pageNumber, pageSize);
+        ApiResponse<PagedResponse<RoomDTO>> response = new ApiResponse<PagedResponse<RoomDTO>>(200, "Success", result);
         return Ok(response);
     }
 
@@ -32,6 +31,17 @@ public class RoomController : ControllerBase
         var result = await _roomService.GetRoomByIdAsync(id);
         ApiResponse<RoomDTO> response = new ApiResponse<RoomDTO>(200, "Success", result);
         return Ok(response);
+    }
+    
+    [HttpGet("type/{roomType}")]
+    public async Task<IActionResult> GetRoomsByType(string roomType)
+    {
+        var rooms = await _roomService.GetRoomsByTypeAsync(roomType);
+        if (rooms == null || rooms.Count == 0)
+        {
+            return NotFound("No rooms found with the specified type.");
+        }
+        return Ok(rooms);
     }
 
     // Thêm phòng (hỗ trợ upload ảnh)

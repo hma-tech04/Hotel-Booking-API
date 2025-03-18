@@ -1,3 +1,4 @@
+using API.DTOs.Response;
 using API.DTOs;
 using API.Models;
 using API.Repositories;
@@ -21,10 +22,12 @@ public class RoomService
     }
 
     // Lấy danh sách phòng (bao gồm danh sách ảnh)
-    public async Task<IEnumerable<RoomDTO>> GetAllRoomsAsync()
+    public async Task<PagedResponse<RoomDTO>> GetAllRoomsAsync(int pageNumber, int pageSize)
     {
-        var rooms = await _roomRepository.GetAllRoomAsync();
-        return rooms.Select(room => new RoomDTO
+        var rooms = await _roomRepository.GetAllRoomsAsync(pageNumber, pageSize);
+        int totalRecords = await _roomRepository.GetTotalRoomsCountAsync();
+
+        var roomDTOs = rooms.Select(room => new RoomDTO
         {
             RoomId = room.RoomId,
             RoomType = room.RoomType,
@@ -34,6 +37,8 @@ public class RoomService
             IsAvailable = room.IsAvailable,
             RoomImages = room.RoomImages.Select(img => img.ImageUrl).ToList()
         });
+
+        return new PagedResponse<RoomDTO>(roomDTOs, pageNumber, pageSize, totalRecords);
     }
 
     // Lấy phòng theo ID (bao gồm danh sách ảnh)
@@ -56,12 +61,23 @@ public class RoomService
             RoomImages = room.RoomImages.Select(img => img.ImageUrl).ToList()
         };
     }
-
-    // Thêm phòng (hỗ trợ lưu ảnh vào wwwroot/images)
+    public async Task<List<RoomDTO>> GetRoomsByTypeAsync(string roomType)
+    {
+        var rooms = await _roomRepository.GetRoomsByTypeAsync(roomType);
+        return rooms.Select(room => new RoomDTO
+        {
+            RoomId = room.RoomId,
+            RoomType = room.RoomType,
+            Price = room.Price,
+            Description = room.Description,
+            ThumbnailUrl = room.ThumbnailUrl,
+            IsAvailable = room.IsAvailable,
+            RoomImages = room.RoomImages.Select(img => img.ImageUrl).ToList()
+        }).ToList();
+    }
     public async Task<RoomDTO> AddRoomAsync(RoomDTO roomDTO, IFormFile? imageFile)
     {
         var room = _mapper.Map<Room>(roomDTO);
-
         // Lưu ảnh nếu có file tải lên
         if (imageFile != null)
         {
@@ -75,9 +91,8 @@ public class RoomService
 
             room.ThumbnailUrl = $"/images/{fileName}";
         }
-
         var newRoom = await _roomRepository.AddRoomAsync(room);
-        return await GetRoomByIdAsync(newRoom.RoomId); // Lấy dữ liệu có đầy đủ danh sách ảnh
+        return await GetRoomByIdAsync(newRoom.RoomId);
     }
 
     // Cập nhật phòng
@@ -107,7 +122,6 @@ public class RoomService
                     File.Delete(oldImagePath);
                 }
             }
-
             // Lưu ảnh mới
             var fileName = $"{Guid.NewGuid()}_{imageFile.FileName}";
             var filePath = Path.Combine(_env.WebRootPath, "images", fileName);

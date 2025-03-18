@@ -12,10 +12,17 @@ namespace API.Repositories
         {
             _context = context;
         }
-
-        public async Task<IEnumerable<Room>> GetAllRoomAsync()
+        public async Task<List<Room>> GetAllRoomsAsync(int pageNumber, int pageSize)
         {
-            return await _context.Rooms.Include(r => r.RoomImages).ToListAsync();
+            return await _context.Rooms
+                .Include(r => r.RoomImages)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+        }
+        public async Task<int> GetTotalRoomsCountAsync()
+        {
+            return await _context.Rooms.CountAsync();
         }
 
         public async Task<Room?> GetRoomByIDAsync(int id)
@@ -23,7 +30,12 @@ namespace API.Repositories
             return await _context.Rooms.Include(r => r.RoomImages)
                                        .FirstOrDefaultAsync(r => r.RoomId == id);
         }
-
+        public async Task<List<Room>> GetRoomsByTypeAsync(string roomType)
+        {
+            return await _context.Rooms
+                .Where(r => r.RoomType == roomType)
+                .ToListAsync();
+        }
         public async Task<Room> AddRoomAsync(Room room)
         {
             _context.Rooms.Add(room);
