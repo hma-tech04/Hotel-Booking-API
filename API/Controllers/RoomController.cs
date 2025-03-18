@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using API.DTOs;
 using API.DTOs.Response;
 using API.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace API.Controllers;
 [ApiController]
@@ -33,22 +34,23 @@ public class RoomController : ControllerBase
         return Ok(response);
     }
 
-    // Thêm phòng
+    // Thêm phòng (hỗ trợ upload ảnh)
     [HttpPost]
-    public async Task<IActionResult> AddRoomAsync(RoomDTO roomDTO)
+    public async Task<IActionResult> AddRoomAsync([FromForm] RoomDTO roomDTO, [FromForm] IFormFile? imageFile)
     {
         if (!ModelState.IsValid)
         {
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
-        var result = await _roomService.AddRoomAsync(roomDTO);
+
+        var result = await _roomService.AddRoomAsync(roomDTO, imageFile);
         ApiResponse<RoomDTO> response = new ApiResponse<RoomDTO>(201, "Room created successfully", result);
         return CreatedAtAction(nameof(GetRoomByIdAsync), new { id = result.RoomId }, response);
     }
 
-    // Cập nhật phòng
+    // Cập nhật phòng (hỗ trợ upload ảnh)
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateRoomAsync(int id, RoomDTO roomDTO)
+    public async Task<IActionResult> UpdateRoomAsync(int id, [FromForm] RoomDTO roomDTO, [FromForm] IFormFile? imageFile)
     {
         if (id != roomDTO.RoomId)
             return BadRequest(new ApiResponse<string>(400, "Room ID mismatch", null));
@@ -57,7 +59,8 @@ public class RoomController : ControllerBase
         {
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
-        var result = await _roomService.UpdateRoomAsync(roomDTO);
+
+        var result = await _roomService.UpdateRoomAsync(id, roomDTO, imageFile);
         ApiResponse<RoomDTO> response = new ApiResponse<RoomDTO>(200, "Room updated successfully", result);
         return Ok(response);
     }
