@@ -3,11 +3,11 @@ using API.DTOs;
 using API.Repositories;
 using AutoMapper;
 
-public class AdminService{
+public class UserAdminService{
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
 
-    public AdminService(IUserRepository userRepository, IMapper mapper)
+    public UserAdminService(IUserRepository userRepository, IMapper mapper)
     {
         _userRepository = userRepository;
         _mapper = mapper;

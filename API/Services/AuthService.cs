@@ -53,4 +53,6 @@ public class AuthService{
 
         return _mapper.Map<UserDTO>(result);
     }
+
+    
 }

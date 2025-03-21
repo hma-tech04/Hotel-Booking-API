@@ -6,18 +6,18 @@ namespace API.Controllers;
 [ApiController]
 [Route("api/[controller]")] 
 public class AdminController : ControllerBase{
-    private readonly AdminService _adminService;
+    private readonly UserAdminService _userAdminService;
 
-    public AdminController(AdminService adminService)
+    public AdminController(UserAdminService userAdminService)
     {
-        _adminService = adminService;
+        _userAdminService = userAdminService;
     }
 
     // Get all users
     [HttpGet("users")]
     public async Task<IActionResult> GetAllAdminAsync()
     {
-        var result = await _adminService.GetAllUsersAsync();
+        var result = await _userAdminService.GetAllUsersAsync();
         ApiResponse<IEnumerable<UserDTO>> response = new ApiResponse<IEnumerable<UserDTO>>(200, "Success", result);
         return Ok(response);
     }
@@ -26,7 +26,7 @@ public class AdminController : ControllerBase{
     // Delete user by ID
     [HttpDelete("users/{id}")]
     public async Task<IActionResult> DeleteUserByIDAsync(int id){
-        var result = await _adminService.DeleteUserAsync(id);
+        var result = await _userAdminService.DeleteUserAsync(id);
         ApiResponse<UserDTO> response = new ApiResponse<UserDTO>(200, "Success", result);
         return Ok(response);
     }
@@ -39,7 +39,7 @@ public class AdminController : ControllerBase{
         {
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
-        var result = await _adminService.UpdateRoleUserAsync(id, updateUserRoleDTO);
+        var result = await _userAdminService.UpdateRoleUserAsync(id, updateUserRoleDTO);
         ApiResponse<UserDTO> response = new ApiResponse<UserDTO>(200, "Success", result);
         return Ok(response);
     }
