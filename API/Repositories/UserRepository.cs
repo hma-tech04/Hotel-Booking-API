@@ -32,7 +32,7 @@ public class UserRepository : IUserRepository
     public async Task<IEnumerable<User>> GetAllUserAsync(){
         return await _context.Users.ToListAsync();
     }
-    public async Task<User?> GetUseByIDAsync(int id) {
+    public async Task<User?> GetUserByIDAsync(int id) {
         var user = await _context.Users.FindAsync(id);
         return user;
     }
