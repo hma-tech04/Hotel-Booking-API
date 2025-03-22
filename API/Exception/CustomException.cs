@@ -2,9 +2,15 @@ public class CustomException : Exception
 {
     public ErrorCode Code { get; }
 
-    public CustomException(ErrorCode Code, string message) 
+    public CustomException(ErrorCode code, string message) 
         : base(message)
     {
-        this.Code = Code;
+        Code = code;
+    }
+
+    public CustomException(ErrorCode code, string message, Exception innerException) 
+        : base(message, innerException)
+    {
+        Code = code;
     }
 }
