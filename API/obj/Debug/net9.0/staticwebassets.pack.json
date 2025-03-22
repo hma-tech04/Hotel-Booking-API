@@ -1,0 +1,57 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\07937c3a-8f15-463d-a5a9-5a6ebbfb4f79_pac-man.webp",
+      "PackagePath": "staticwebassets\\images\\07937c3a-8f15-463d-a5a9-5a6ebbfb4f79_pac-man.webp"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\0ddf1375-d658-49db-adec-942a723f7669_The Lord of the Rings.webp",
+      "PackagePath": "staticwebassets\\images\\0ddf1375-d658-49db-adec-942a723f7669_The Lord of the Rings.webp"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\6f60869c-4ec9-4b86-933f-51373551454f_pac-man.webp",
+      "PackagePath": "staticwebassets\\images\\6f60869c-4ec9-4b86-933f-51373551454f_pac-man.webp"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\95243cb6-9ef6-488a-9d74-28e31160a88d_pac-man.webp",
+      "PackagePath": "staticwebassets\\images\\95243cb6-9ef6-488a-9d74-28e31160a88d_pac-man.webp"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\9aa6d6aa-3d9e-4c34-8418-640ad0cf4d6c_pac-man.webp",
+      "PackagePath": "staticwebassets\\images\\9aa6d6aa-3d9e-4c34-8418-640ad0cf4d6c_pac-man.webp"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\b9e94735-6b10-4817-92fd-2745388e75ff_pac-man.webp",
+      "PackagePath": "staticwebassets\\images\\b9e94735-6b10-4817-92fd-2745388e75ff_pac-man.webp"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\c3d31851-c73f-4c54-b4c1-39d760789ac7_pac-man.webp",
+      "PackagePath": "staticwebassets\\images\\c3d31851-c73f-4c54-b4c1-39d760789ac7_pac-man.webp"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\d5a0de33-30ef-4d91-bd67-7cf89657f1b7_pac-man.webp",
+      "PackagePath": "staticwebassets\\images\\d5a0de33-30ef-4d91-bd67-7cf89657f1b7_pac-man.webp"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.API.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.API.props",
+      "PackagePath": "build\\API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.API.props",
+      "PackagePath": "buildMultiTargeting\\API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.API.props",
+      "PackagePath": "buildTransitive\\API.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

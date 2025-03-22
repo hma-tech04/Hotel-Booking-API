@@ -40,6 +40,21 @@ public class RoomService
 
         return new PagedResponse<RoomDTO>(roomDTOs, pageNumber, pageSize, totalRecords);
     }
+    public async Task<List<RoomDTO>> GetAllRoomsNoPagingAsync()
+    {
+        var rooms = await _roomRepository.GetAllRoomsNoPagingAsync();
+        var roomDTOs = rooms.Select(room => new RoomDTO
+        {
+            RoomId = room.RoomId,
+            RoomType = room.RoomType,
+            Price = room.Price,
+            Description = room.Description,
+            ThumbnailUrl = room.ThumbnailUrl,
+            IsAvailable = room.IsAvailable,
+            RoomImages = room.RoomImages.Select(img => img.ImageUrl).ToList()
+        }).ToList();
+        return roomDTOs;
+    }
 
     // Lấy phòng theo ID (bao gồm danh sách ảnh)
     public async Task<RoomDTO> GetRoomByIdAsync(int id)
@@ -75,15 +90,36 @@ public class RoomService
             RoomImages = room.RoomImages.Select(img => img.ImageUrl).ToList()
         }).ToList();
     }
-    public async Task<RoomDTO> AddRoomAsync(RoomDTO roomDTO, IFormFile? imageFile)
+
+    public async Task<RoomDTO> AddRoomAsync(RoomDTO roomDTO, IFormFile? imageFile = null)
     {
-        var room = _mapper.Map<Room>(roomDTO);
-        // Lưu ảnh nếu có file tải lên
+        if (roomDTO == null)
+            throw new ArgumentNullException(nameof(roomDTO), "RoomDTO cannot be null");
+
+        if (roomDTO.Price <= 0)
+            throw new ArgumentException("Price must be greater than 0.", nameof(roomDTO.Price));
+
+        var room = new Room
+        {
+            RoomType = roomDTO.RoomType,
+            Price = roomDTO.Price,
+            Description = roomDTO.Description,
+            IsAvailable = roomDTO.IsAvailable,
+            ThumbnailUrl = null
+        };
+
         if (imageFile != null)
         {
             var fileName = $"{Guid.NewGuid()}_{imageFile.FileName}";
-            var filePath = Path.Combine(_env.WebRootPath, "images", fileName);
+            var uploadPath = Path.Combine(_env.WebRootPath, "images");
 
+            if (!Directory.Exists(uploadPath))
+            {
+                Directory.CreateDirectory(uploadPath);
+            }
+
+            var filePath = Path.Combine(uploadPath, fileName);
+            
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await imageFile.CopyToAsync(stream);
@@ -91,12 +127,12 @@ public class RoomService
 
             room.ThumbnailUrl = $"/images/{fileName}";
         }
+
         var newRoom = await _roomRepository.AddRoomAsync(room);
-        return await GetRoomByIdAsync(newRoom.RoomId);
+        return _mapper.Map<RoomDTO>(newRoom);
     }
 
-    // Cập nhật phòng
-    public async Task<RoomDTO> UpdateRoomAsync(int id, RoomDTO roomDTO, IFormFile? imageFile)
+    public async Task<RoomDTO> UpdateRoomAsync(int id, RoomDTO roomDTO, IFormFile? imageFile = null)
     {
         var existingRoom = await _roomRepository.GetRoomByIDAsync(id);
         if (existingRoom == null)
@@ -110,10 +146,8 @@ public class RoomService
         existingRoom.Description = roomDTO.Description;
         existingRoom.IsAvailable = roomDTO.IsAvailable;
 
-        // Cập nhật ảnh nếu có file mới tải lên
         if (imageFile != null)
         {
-            // Xóa ảnh cũ nếu tồn tại
             if (!string.IsNullOrEmpty(existingRoom.ThumbnailUrl))
             {
                 var oldImagePath = Path.Combine(_env.WebRootPath, existingRoom.ThumbnailUrl.TrimStart('/'));

@@ -43,7 +43,9 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<AdminService>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<RoomService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 
 // Config controller and filter
 builder.Services.AddControllers(options =>

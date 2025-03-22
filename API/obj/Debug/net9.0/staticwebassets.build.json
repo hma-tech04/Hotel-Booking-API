@@ -1,0 +1,846 @@
+{
+  "Version": 1,
+  "Hash": "/y29vo1brcHFFp1gk93Ih96BdxfLlsdywhCIUYiDv0w=",
+  "Source": "API",
+  "BasePath": "_content/API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "API\\wwwroot",
+      "Source": "API",
+      "ContentRoot": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\07937c3a-8f15-463d-a5a9-5a6ebbfb4f79_pac-man.webp",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/07937c3a-8f15-463d-a5a9-5a6ebbfb4f79_pac-man#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "l8a9yap1g8",
+      "Integrity": "68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\07937c3a-8f15-463d-a5a9-5a6ebbfb4f79_pac-man.webp"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\0ddf1375-d658-49db-adec-942a723f7669_The Lord of the Rings.webp",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/0ddf1375-d658-49db-adec-942a723f7669_The Lord of the Rings#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "yvsr6rc0sw",
+      "Integrity": "AmMSRQoemdOMhxpYPsqMJqeV+LOh6PKM2+nviq3zS/c=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\0ddf1375-d658-49db-adec-942a723f7669_The Lord of the Rings.webp"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\6f60869c-4ec9-4b86-933f-51373551454f_pac-man.webp",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/6f60869c-4ec9-4b86-933f-51373551454f_pac-man#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "l8a9yap1g8",
+      "Integrity": "68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\6f60869c-4ec9-4b86-933f-51373551454f_pac-man.webp"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\95243cb6-9ef6-488a-9d74-28e31160a88d_pac-man.webp",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/95243cb6-9ef6-488a-9d74-28e31160a88d_pac-man#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "l8a9yap1g8",
+      "Integrity": "68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\95243cb6-9ef6-488a-9d74-28e31160a88d_pac-man.webp"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\9aa6d6aa-3d9e-4c34-8418-640ad0cf4d6c_pac-man.webp",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/9aa6d6aa-3d9e-4c34-8418-640ad0cf4d6c_pac-man#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "l8a9yap1g8",
+      "Integrity": "68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\9aa6d6aa-3d9e-4c34-8418-640ad0cf4d6c_pac-man.webp"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\b9e94735-6b10-4817-92fd-2745388e75ff_pac-man.webp",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/b9e94735-6b10-4817-92fd-2745388e75ff_pac-man#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "l8a9yap1g8",
+      "Integrity": "68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\b9e94735-6b10-4817-92fd-2745388e75ff_pac-man.webp"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\c3d31851-c73f-4c54-b4c1-39d760789ac7_pac-man.webp",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/c3d31851-c73f-4c54-b4c1-39d760789ac7_pac-man#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "l8a9yap1g8",
+      "Integrity": "68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\c3d31851-c73f-4c54-b4c1-39d760789ac7_pac-man.webp"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\d5a0de33-30ef-4d91-bd67-7cf89657f1b7_pac-man.webp",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/d5a0de33-30ef-4d91-bd67-7cf89657f1b7_pac-man#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "l8a9yap1g8",
+      "Integrity": "68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\d5a0de33-30ef-4d91-bd67-7cf89657f1b7_pac-man.webp"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "images/07937c3a-8f15-463d-a5a9-5a6ebbfb4f79_pac-man.l8a9yap1g8.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\07937c3a-8f15-463d-a5a9-5a6ebbfb4f79_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 15:00:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "l8a9yap1g8"
+        },
+        {
+          "Name": "label",
+          "Value": "images/07937c3a-8f15-463d-a5a9-5a6ebbfb4f79_pac-man.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/07937c3a-8f15-463d-a5a9-5a6ebbfb4f79_pac-man.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\07937c3a-8f15-463d-a5a9-5a6ebbfb4f79_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 15:00:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/0ddf1375-d658-49db-adec-942a723f7669_The Lord of the Rings.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\0ddf1375-d658-49db-adec-942a723f7669_The Lord of the Rings.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "77130"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AmMSRQoemdOMhxpYPsqMJqeV+LOh6PKM2+nviq3zS/c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 15:21:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AmMSRQoemdOMhxpYPsqMJqeV+LOh6PKM2+nviq3zS/c="
+        }
+      ]
+    },
+    {
+      "Route": "images/0ddf1375-d658-49db-adec-942a723f7669_The Lord of the Rings.yvsr6rc0sw.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\0ddf1375-d658-49db-adec-942a723f7669_The Lord of the Rings.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "77130"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AmMSRQoemdOMhxpYPsqMJqeV+LOh6PKM2+nviq3zS/c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 15:21:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yvsr6rc0sw"
+        },
+        {
+          "Name": "label",
+          "Value": "images/0ddf1375-d658-49db-adec-942a723f7669_The Lord of the Rings.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-AmMSRQoemdOMhxpYPsqMJqeV+LOh6PKM2+nviq3zS/c="
+        }
+      ]
+    },
+    {
+      "Route": "images/6f60869c-4ec9-4b86-933f-51373551454f_pac-man.l8a9yap1g8.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\6f60869c-4ec9-4b86-933f-51373551454f_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 15:02:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "l8a9yap1g8"
+        },
+        {
+          "Name": "label",
+          "Value": "images/6f60869c-4ec9-4b86-933f-51373551454f_pac-man.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/6f60869c-4ec9-4b86-933f-51373551454f_pac-man.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\6f60869c-4ec9-4b86-933f-51373551454f_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 15:02:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/95243cb6-9ef6-488a-9d74-28e31160a88d_pac-man.l8a9yap1g8.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\95243cb6-9ef6-488a-9d74-28e31160a88d_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 15:02:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "l8a9yap1g8"
+        },
+        {
+          "Name": "label",
+          "Value": "images/95243cb6-9ef6-488a-9d74-28e31160a88d_pac-man.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/95243cb6-9ef6-488a-9d74-28e31160a88d_pac-man.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\95243cb6-9ef6-488a-9d74-28e31160a88d_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 15:02:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/9aa6d6aa-3d9e-4c34-8418-640ad0cf4d6c_pac-man.l8a9yap1g8.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\9aa6d6aa-3d9e-4c34-8418-640ad0cf4d6c_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 15:02:18 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "l8a9yap1g8"
+        },
+        {
+          "Name": "label",
+          "Value": "images/9aa6d6aa-3d9e-4c34-8418-640ad0cf4d6c_pac-man.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/9aa6d6aa-3d9e-4c34-8418-640ad0cf4d6c_pac-man.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\9aa6d6aa-3d9e-4c34-8418-640ad0cf4d6c_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 15:02:18 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/b9e94735-6b10-4817-92fd-2745388e75ff_pac-man.l8a9yap1g8.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\b9e94735-6b10-4817-92fd-2745388e75ff_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 15:02:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "l8a9yap1g8"
+        },
+        {
+          "Name": "label",
+          "Value": "images/b9e94735-6b10-4817-92fd-2745388e75ff_pac-man.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/b9e94735-6b10-4817-92fd-2745388e75ff_pac-man.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\b9e94735-6b10-4817-92fd-2745388e75ff_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 15:02:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/c3d31851-c73f-4c54-b4c1-39d760789ac7_pac-man.l8a9yap1g8.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\c3d31851-c73f-4c54-b4c1-39d760789ac7_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 14:55:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "l8a9yap1g8"
+        },
+        {
+          "Name": "label",
+          "Value": "images/c3d31851-c73f-4c54-b4c1-39d760789ac7_pac-man.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/c3d31851-c73f-4c54-b4c1-39d760789ac7_pac-man.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\c3d31851-c73f-4c54-b4c1-39d760789ac7_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 14:55:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/d5a0de33-30ef-4d91-bd67-7cf89657f1b7_pac-man.l8a9yap1g8.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\d5a0de33-30ef-4d91-bd67-7cf89657f1b7_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 15:02:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "l8a9yap1g8"
+        },
+        {
+          "Name": "label",
+          "Value": "images/d5a0de33-30ef-4d91-bd67-7cf89657f1b7_pac-man.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/d5a0de33-30ef-4d91-bd67-7cf89657f1b7_pac-man.webp",
+      "AssetFile": "C:\\Users\\Admin\\Downloads\\DoAnLapTrinhWeb\\Hotel-Booking-API\\API\\wwwroot\\images\\d5a0de33-30ef-4d91-bd67-7cf89657f1b7_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 21 Mar 2025 15:02:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    }
+  ]
+}

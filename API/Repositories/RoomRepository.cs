@@ -20,6 +20,13 @@ namespace API.Repositories
                 .Take(pageSize)
                 .ToListAsync();
         }
+        public async Task<List<Room>> GetAllRoomsNoPagingAsync()
+        {
+            return await _context.Rooms
+                .Include(r => r.RoomImages)
+                .ToListAsync();
+        }
+
         public async Task<int> GetTotalRoomsCountAsync()
         {
             return await _context.Rooms.CountAsync();
@@ -42,7 +49,6 @@ namespace API.Repositories
             await _context.SaveChangesAsync();
             return room;
         }
-
         public async Task<Room?> UpdateRoomAsync(Room room)
         {
             var existingRoom = await _context.Rooms.FindAsync(room.RoomId);
