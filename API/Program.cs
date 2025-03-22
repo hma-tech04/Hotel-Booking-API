@@ -6,6 +6,7 @@ using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,13 +38,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 #pragma warning restore CS8604 // Possible null reference argument.
     });
 
+// Config redis
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+{
+    var configuration = builder.Configuration.GetSection("Redis")["ConnectionString"];
+#pragma warning disable CS8604 // Possible null reference argument.
+    return ConnectionMultiplexer.Connect(configuration);
+#pragma warning restore CS8604 // Possible null reference argument.
+});
+
+// Config Email service
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
 // add services
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<TokenService>();
-builder.Services.AddScoped<AdminService>();
+builder.Services.AddScoped<UserAdminService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<EmailService>();
+
 
 // Config controller and filter
 builder.Services.AddControllers(options =>

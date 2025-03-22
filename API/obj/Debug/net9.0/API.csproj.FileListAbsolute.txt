@@ -11,7 +11,9 @@
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Azure.Core.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Azure.Identity.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/BCrypt.Net-Next.dll
+/Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/BouncyCastle.Cryptography.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Humanizer.dll
+/Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/MailKit.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Microsoft.AspNetCore.OpenApi.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Microsoft.Bcl.AsyncInterfaces.dll
@@ -49,7 +51,10 @@
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Microsoft.OpenApi.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Microsoft.SqlServer.Server.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Microsoft.Win32.SystemEvents.dll
+/Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/MimeKit.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Mono.TextTemplating.dll
+/Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/Pipelines.Sockets.Unofficial.dll
+/Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/StackExchange.Redis.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/System.ClientModel.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/System.CodeDom.dll
 /Users/huynhminhanh/Documents/Hotel-Booking-API/API/bin/Debug/net9.0/System.Composition.AttributedModel.dll

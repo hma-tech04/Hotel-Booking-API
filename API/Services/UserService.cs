@@ -20,7 +20,7 @@ public class UserService
     // Get user by ID
     public async Task<UserDTO> GetUserByIdAsync(int id)
     {
-        var user = await _userRepository.GetUseByIDAsync(id);
+        var user = await _userRepository.GetUserByIDAsync(id);
         if (user == null)
         {
             throw new CustomException(ErrorCode.NotFound, $"No user found with ID: {id}");
@@ -31,7 +31,7 @@ public class UserService
     // Update user
     public async Task<UserDTO> UpdateUserAsync(UserDTO userDTO)
     {
-        var existingUser = await _userRepository.GetUseByIDAsync(userDTO.UserId);
+        var existingUser = await _userRepository.GetUserByIDAsync(userDTO.UserId);
         if (existingUser == null)
         {
             throw new CustomException(ErrorCode.NotFound, $"No user found with ID: {userDTO.UserId}");

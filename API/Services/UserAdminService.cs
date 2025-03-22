@@ -34,7 +34,7 @@ public class UserAdminService{
     // Update role user
     public async Task<UserDTO> UpdateRoleUserAsync(int id, UpdateUserRoleDTO updateUserRoleDTO)
     {
-        var existingUser = await _userRepository.GetUseByIDAsync(id);
+        var existingUser = await _userRepository.GetUserByIDAsync(id);
         if (existingUser == null)
         {
             throw new CustomException(ErrorCode.NotFound, $"No user found with ID: {id}");
