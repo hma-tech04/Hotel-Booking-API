@@ -86,7 +86,7 @@ public class AuthController : ControllerBase
         }
         return Ok(response.GetResponse());
     }
-    [Authorize]
+    [Authorize(Roles = "User")]
     [HttpPost("reset-password")]
     public async Task<IActionResult> ResetPassword(ResetPasswordDTO request)
     {
@@ -98,12 +98,5 @@ public class AuthController : ControllerBase
         var result = await _authService.ResetPassword(request, email);
         ApiResponse<string> response = new ApiResponse<string>(200, "Success", result);
         return Ok(response);
-    }
-    [Authorize(Roles = "Admin")]
-    [HttpGet("get-claims")]
-    public IActionResult GetAllClaims()
-    {
-        var claims = User.Claims.Select(c => new { c.Type, c.Value }).ToList();
-        return Ok(claims);
     }
 }
