@@ -4907,11 +4907,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/huynhminhanh/Documents/Project/Hotel-Booking-API/API/API.csproj",
+      "projectUniqueName": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/API.csproj",
       "projectName": "API",
-      "projectPath": "/Users/huynhminhanh/Documents/Project/Hotel-Booking-API/API/API.csproj",
+      "projectPath": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/API.csproj",
       "packagesPath": "/Users/huynhminhanh/.nuget/packages/",
-      "outputPath": "/Users/huynhminhanh/Documents/Project/Hotel-Booking-API/API/obj/",
+      "outputPath": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/huynhminhanh/.nuget/NuGet/NuGet.Config"

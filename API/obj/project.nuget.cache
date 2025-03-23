@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7gJDIK1C++o=",
+  "dgSpecHash": "OQpk/jeswAI=",
   "success": true,
-  "projectFilePath": "/Users/huynhminhanh/Documents/Project/Hotel-Booking-API/API/API.csproj",
+  "projectFilePath": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/API.csproj",
   "expectedPackageFiles": [
     "/Users/huynhminhanh/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/Users/huynhminhanh/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
