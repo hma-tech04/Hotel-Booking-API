@@ -14,6 +14,7 @@ public class AuthService
     private const string KeyAccessToken = "Access_Token_";
     private const string KeyRefreshToken = "Refresh_Token_";
     private const string KeyBlackListToken = "Black_List_";
+    private const string KeyResetPassword = "Reset_Password_";
     private const string KeyOTP = "OTP_Email_";
     private const int AccessTokenExpiryMinutes = 15;
     private const int RefreshTokenExpiryDays = 10;
@@ -166,7 +167,7 @@ public class AuthService
     }
 
     // Verify OTP 
-    public async Task<ApiResponse<string>> VerifyOTP(VerifyOTP_DTO request)
+    public async Task<TokenResponse?> VerifyOTP(VerifyOTP_DTO request)
     {
         string key = KeyOTP + request.Email;
 
@@ -174,10 +175,43 @@ public class AuthService
 
         if (string.IsNullOrEmpty(OTP) || OTP != request.OTP)
         {
-            return new ApiResponse<string>(400, "OTP is invalid or has expired.");
+            return null;
         }
 
-        return new ApiResponse<string>(200, "OTP verification successful.", "Success");
+        await _redis.KeyDeleteAsync(key);
+
+        var user = await _userRepository.GetUserByEmailAsync(request.Email);
+        if (user == null)
+        {
+            throw new CustomException(ErrorCode.NotFound, "Email does not exist in the system.");
+        }
+        var resetToken = _jwtService.CreateToken(user);
+        string keyCreateResetPass = KeyResetPassword + request.Email;
+        _redis.StringSet(keyCreateResetPass, resetToken, TimeSpan.FromMinutes(5));
+        return new TokenResponse(resetToken);
     }
+
+    public async Task<string> ResetPassword(ResetPasswordDTO request, string email){
+        string keyGetToken = KeyResetPassword + email;
+        var token = _redis.StringGet(keyGetToken);
+
+        if(string.IsNullOrEmpty(token)){
+            throw new CustomException(ErrorCode.Unauthorized, "Reset password token is invalid or has expired.");
+        }
+
+        var user = await _userRepository.GetUserByEmailAsync(email);
+        if(user == null){
+            throw new CustomException(ErrorCode.NotFound, "Email does not exist in the system.");
+        }
+
+        string newPassword = _bcryptService.HashPassword(request.NewPassword);
+        user.PasswordHash = newPassword;
+
+        await _userRepository.UpdateUserAsync(user);
+        await _redis.KeyDeleteAsync(keyGetToken);
+        return "Password has been successfully reset.";
+    }
+
+
 
 }

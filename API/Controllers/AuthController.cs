@@ -1,13 +1,17 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using API.DTOs;
 using API.DTOs.Auth;
 using API.DTOs.Response;
 using API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 [ApiController]
 [Route("api/[controller]")]
-public class AuthController : ControllerBase{
+public class AuthController : ControllerBase
+{
     private readonly AuthService _authService;
 
     public AuthController(AuthService authService)
@@ -40,8 +44,10 @@ public class AuthController : ControllerBase{
     }
 
     [HttpPost("refresh-token")]
-    public async Task<IActionResult> RenewToken(RefreshTokenRequest refreshTokenRequest){
-        if(!ModelState.IsValid){
+    public async Task<IActionResult> RenewToken(RefreshTokenRequest refreshTokenRequest)
+    {
+        if (!ModelState.IsValid)
+        {
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
         var result = await _authService.RenewAccessToken(refreshTokenRequest);
@@ -50,22 +56,54 @@ public class AuthController : ControllerBase{
     }
 
     [HttpPost("forgot-password")]
-    public async Task<IActionResult> ForgotPassword(ForgotPasswordDTO forgotPasswordDTO){
-        if(!ModelState.IsValid){
+    public async Task<IActionResult> ForgotPassword(ForgotPasswordDTO forgotPasswordDTO)
+    {
+        if (!ModelState.IsValid)
+        {
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
         var result = await _authService.ForgotPassword(forgotPasswordDTO);
-        ApiResponse<string> response = new ApiResponse<string> (200, result);
+        ApiResponse<string> response = new ApiResponse<string>(200, result);
         return Ok(response.GetResponse());
     }
 
     [HttpPost("verify-otp")]
     public async Task<IActionResult> VerifyOTP(VerifyOTP_DTO request)
     {
-        if(!ModelState.IsValid){
+        if (!ModelState.IsValid)
+        {
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
-        var response = await _authService.VerifyOTP(request);
+        var result = await _authService.VerifyOTP(request);
+        ApiResponse<TokenResponse> response;
+        if (result == null)
+        {
+            response = new ApiResponse<TokenResponse>((int)ErrorCode.Unauthorized, "OTP is invalid or has expired.", null);
+        }
+        else
+        {
+            response = new ApiResponse<TokenResponse>(200, "Success", result);
+        }
         return Ok(response.GetResponse());
+    }
+    [Authorize]
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPassword(ResetPasswordDTO request)
+    {
+        var email = User.FindFirst(ClaimTypes.Email)?.Value;
+        if (email == null)
+        {
+            throw new CustomException(ErrorCode.BadRequest, "Token is invalid or has expired.");
+        }
+        var result = await _authService.ResetPassword(request, email);
+        ApiResponse<string> response = new ApiResponse<string>(200, "Success", result);
+        return Ok(response);
+    }
+    [Authorize(Roles = "Admin")]
+    [HttpGet("get-claims")]
+    public IActionResult GetAllClaims()
+    {
+        var claims = User.Claims.Select(c => new { c.Type, c.Value }).ToList();
+        return Ok(claims);
     }
 }
