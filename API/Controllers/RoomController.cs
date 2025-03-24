@@ -55,40 +55,23 @@ public class RoomController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddRoomAsync([FromBody] RoomDTO roomDTO)
+    public async Task<IActionResult> AddRoomAsync([FromForm] RoomDTO roomDTO, [FromForm] List<IFormFile>? imageFiles)
     {
-        Console.WriteLine($"[DEBUG] Received RoomType = {roomDTO.RoomType}");
-        Console.WriteLine($"[DEBUG] Received Price = {roomDTO.Price}");
-        Console.WriteLine($"[DEBUG] Received Description = {roomDTO.Description}");
-        Console.WriteLine($"[DEBUG] Received IsAvailable = {roomDTO.IsAvailable}");
-
-        if (string.IsNullOrWhiteSpace(roomDTO.RoomType))
-        {
-            return BadRequest(new ApiResponse<string>(400, "RoomType is required.", null));
-        }
-        if (roomDTO.Price <= 0)
-        {
-            return BadRequest(new ApiResponse<string>(400, "Price must be greater than 0.", null));
-        }
-
-        var result = await _roomService.AddRoomAsync(roomDTO);
+        var result = await _roomService.AddRoomAsync(roomDTO, imageFiles);
         return CreatedAtAction(nameof(GetRoomById), new { id = result.RoomId }, new ApiResponse<RoomDTO>(201, "Room created successfully", result));
     }
 
+
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateRoomAsync(int id, [FromBody] RoomDTO roomDTO)
+    public async Task<IActionResult> UpdateRoomAsync(int id, [FromForm] RoomDTO roomDTO, [FromForm] List<IFormFile>? imageFiles)
     {
         if (id != roomDTO.RoomId)
             return BadRequest(new ApiResponse<string>(400, "Room ID mismatch", null));
 
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(new ApiResponse<string>(400, "Invalid input", null));
-        }
-
-        var result = await _roomService.UpdateRoomAsync(id, roomDTO);
+        var result = await _roomService.UpdateRoomAsync(id, roomDTO, imageFiles);
         return Ok(new ApiResponse<RoomDTO>(200, "Room updated successfully", result));
     }
+
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteRoomAsync(int id)
@@ -98,59 +81,3 @@ public class RoomController : ControllerBase
         return Ok(response);
     }
 }
-
-/*
- [HttpPost]
-    public async Task<IActionResult> AddRoomAsync(
-        [FromForm] string? roomType,
-        [FromForm] string? price,
-        [FromForm] string? description,
-        [FromForm] bool isAvailable,
-        [FromForm] IFormFile? imageFile)
-    {
-        Console.WriteLine($"[DEBUG] Received roomType = '{roomType}'");
-        Console.WriteLine($"[DEBUG] Received price = '{price}'");
-        Console.WriteLine($"[DEBUG] Received description = '{description}'");
-        Console.WriteLine($"[DEBUG] Received isAvailable = '{isAvailable}'");
-        Console.WriteLine($"[DEBUG] Received imageFile = '{imageFile?.FileName}'");
-
-        if (string.IsNullOrWhiteSpace(roomType))
-        {
-            return BadRequest(new ApiResponse<string>(400, "RoomType is required.", null));
-        }
-        if (string.IsNullOrWhiteSpace(price) 
-            || !decimal.TryParse(price, out decimal parsedPrice) 
-            || parsedPrice <= 0)
-        {
-            return BadRequest(new ApiResponse<string>(400, "Price must be greater than 0.", null));
-        }
-
-        var roomDTO = new RoomDTO
-        {
-            RoomType = roomType,
-            Price = parsedPrice,
-            Description = description,
-            IsAvailable = isAvailable
-        };
-
-        var result = await _roomService.AddRoomAsync(roomDTO, imageFile);
-        Console.WriteLine($"[DEBUG] Created new room with ID = {result.RoomId}");
-        return CreatedAtAction(nameof(GetRoomById), new { id = result.RoomId }, result);
-    }
-
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateRoomAsync(int id, [FromForm] RoomDTO roomDTO, [FromForm] IFormFile? imageFile)
-    {
-        if (id != roomDTO.RoomId)
-            return BadRequest(new ApiResponse<string>(400, "Room ID mismatch", null));
-
-        if (!ModelState.IsValid)
-        {
-            throw new CustomException(ErrorCode.BadRequest, "Invalid input");
-        }
-
-        var result = await _roomService.UpdateRoomAsync(id, roomDTO, imageFile);
-        ApiResponse<RoomDTO> response = new ApiResponse<RoomDTO>(200, "Room updated successfully", result);
-        return Ok(response);
-    }
-    */
