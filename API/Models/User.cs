@@ -12,13 +12,13 @@ public partial class User
 
     public required string Email { get; set; }
 
-    public required string PasswordHash { get; set; }
+    public string? PasswordHash { get; set; }
 
     public UserRole Role { get; set; } = UserRole.User;
 
     public DateTime? CreatedDate { get; set; }
 
-    public required string PhoneNumber { get; set; }
+    public string? PhoneNumber { get; set; }
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 }

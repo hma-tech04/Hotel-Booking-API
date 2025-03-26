@@ -45,9 +45,17 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Secret"])),
         ClockSkew = TimeSpan.Zero
     };
-#pragma warning restore CS8604 // Possible null reference argument.
-});
 
+#pragma warning restore CS8604 // Possible null reference argument.
+})
+.AddGoogle(options =>
+{
+#pragma warning disable CS8601 // Possible null reference assignment.
+    options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+#pragma warning restore CS8601 // Possible null reference assignment.
+    options.CallbackPath = builder.Configuration["Authentication:Google:CallbackPath"];
+});
 
 builder.Services.AddAuthorization();
 IdentityModelEventSource.ShowPII = true;
@@ -64,6 +72,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 // Config Email service
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
+
 // add services
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<TokenService>();
@@ -71,16 +80,17 @@ builder.Services.AddScoped<UserAdminService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<GoogleService>();
 
 
 // Config controller and filter
 builder.Services.AddControllers(options =>
 {
-    options.Filters.Add<ApiExceptionFilter>(); 
+    options.Filters.Add<ApiExceptionFilter>();
 })
 .AddJsonOptions(options =>
 {
-    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); 
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
 

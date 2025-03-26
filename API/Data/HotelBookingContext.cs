@@ -90,7 +90,7 @@ public partial class HotelBookingContext : DbContext
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.RoomType)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(true);
             entity.Property(e => e.ThumbnailUrl)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -123,7 +123,7 @@ public partial class HotelBookingContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.FullName)
                 .HasMaxLength(100)
-                .IsUnicode(false);
+                .IsUnicode(true);
             entity.Property(e => e.PasswordHash)
                 .HasMaxLength(255)
                 .IsUnicode(false);

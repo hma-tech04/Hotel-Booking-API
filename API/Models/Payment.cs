@@ -14,7 +14,7 @@ public partial class Payment
 
     public decimal PaymentAmount { get; set; }
 
-    public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Momo;
+    public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.VNPAY;
 
     public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
     public virtual Booking Booking { get; set; } = null!;

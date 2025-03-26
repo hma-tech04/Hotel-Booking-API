@@ -1,9 +1,6 @@
-// Purpose: Enum for PaymentMethod.
-using System;
-namespace API.Enum
+namespace API.Enum;
+public enum PaymentMethod
 {
-    public enum PaymentMethod
-    {
-        Momo
-    }
+    VNPAY
 }
+

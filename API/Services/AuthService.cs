@@ -7,6 +7,7 @@ using API.DTOs.Response;
 using StackExchange.Redis;
 using IDatabase = StackExchange.Redis.IDatabase;
 using API.DTOs.Auth;
+using System.Security.Cryptography;
 
 namespace API.Services;
 public class AuthService
@@ -25,7 +26,9 @@ public class AuthService
     private readonly IDatabase _redis;
     private readonly EmailService _emailService;
 
-    public AuthService(IUserRepository userRepository, TokenService jwtService, IMapper IMapper, IConnectionMultiplexer redis, EmailService emailService)
+    private readonly GoogleService _googleService;
+
+    public AuthService(IUserRepository userRepository, TokenService jwtService, IMapper IMapper, IConnectionMultiplexer redis, EmailService emailService, GoogleService googleService)
     {
         _userRepository = userRepository;
         _bcryptService = new BcryptService();
@@ -33,20 +36,16 @@ public class AuthService
         _mapper = IMapper;
         _redis = redis.GetDatabase();
         _emailService = emailService;
+        _googleService = googleService;
     }
 
     // Login user
-    public async Task<AuthResponse> LoginAsync(UserLoginDTO userLoginDTO)
+    public async Task<AuthResponse> LoginAsync(LoginDTO loginDTO)
     {
-        var user = await _userRepository.GetUserByEmailAsync(userLoginDTO.Email);
-        if (user == null)
+        var user = await _userRepository.GetUserByEmailAsync(loginDTO.Email);
+        if (user == null || user.PasswordHash == null || !_bcryptService.VerifyPassword(loginDTO.Password, user.PasswordHash))
         {
-            throw new CustomException(ErrorCode.NotFound, "Email not found.");
-        }
-
-        if (!_bcryptService.VerifyPassword(userLoginDTO.Password, user.PasswordHash))
-        {
-            throw new CustomException(ErrorCode.BadRequest, "Password is incorrect.");
+            throw new CustomException(ErrorCode.Unauthorized, "Invalid email or password.");
         }
 
         string accessToken = _jwtService.CreateToken(user);
@@ -55,15 +54,8 @@ public class AuthService
         string keyAccess = KeyAccessToken + user.UserId.ToString();
         string keyRefresh = KeyRefreshToken + user.UserId.ToString();
 
-        try
-        {
-            _redis.StringSet(keyAccess, accessToken, TimeSpan.FromMinutes(AccessTokenExpiryMinutes));
-            _redis.StringSet(keyRefresh, refreshToken, TimeSpan.FromDays(RefreshTokenExpiryDays));
-        }
-        catch (Exception ex)
-        {
-            throw new CustomException(ErrorCode.InternalServerError, "Unable to store token in Redis.", ex);
-        }
+        _redis.StringSet(keyAccess, accessToken, TimeSpan.FromMinutes(AccessTokenExpiryMinutes));
+        _redis.StringSet(keyRefresh, refreshToken, TimeSpan.FromDays(RefreshTokenExpiryDays));
 
         return new AuthResponse(accessToken, refreshToken);
     }
@@ -71,35 +63,26 @@ public class AuthService
     // Generate new token via refresh
     public async Task<TokenResponse> RenewAccessToken(RefreshTokenRequest refreshTokenRequest)
     {
-        try
+        string keyRefresh = KeyRefreshToken + refreshTokenRequest.UserId.ToString();
+        var storedToken = _redis.StringGet(keyRefresh);
+
+        if (string.IsNullOrEmpty(storedToken) || storedToken != refreshTokenRequest.RefreshToken)
         {
-
-            string keyRefresh = KeyRefreshToken + refreshTokenRequest.UserId.ToString();
-            var storedToken = _redis.StringGet(keyRefresh);
-
-            if (string.IsNullOrEmpty(storedToken) || storedToken != refreshTokenRequest.RefreshToken)
-            {
-                throw new CustomException(ErrorCode.Unauthorized, "Invalid or expired refresh token.");
-            }
-
-            var user = await _userRepository.GetUserByIDAsync(int.Parse(refreshTokenRequest.UserId.ToString()));
-            if (user == null)
-            {
-                throw new CustomException(ErrorCode.NotFound, "User not found.");
-            }
-
-            string newAccessToken = _jwtService.CreateToken(user);
-            string keyAccess = KeyAccessToken + user.UserId.ToString();
-            _redis.StringSet(keyAccess, newAccessToken, TimeSpan.FromMinutes(AccessTokenExpiryMinutes));
-
-            return new TokenResponse(newAccessToken);
+            throw new CustomException(ErrorCode.Unauthorized, "Invalid or expired refresh token.");
         }
-        catch (Exception ex)
+
+        var user = await _userRepository.GetUserByIDAsync(refreshTokenRequest.UserId);
+        if (user == null)
         {
-            throw new CustomException(ErrorCode.InternalServerError, "Error while renewing access token.", ex);
+            throw new CustomException(ErrorCode.NotFound, "User not found.");
         }
+
+        string newAccessToken = _jwtService.CreateToken(user);
+        string keyAccess = KeyAccessToken + user.UserId.ToString();
+        _redis.StringSet(keyAccess, newAccessToken, TimeSpan.FromMinutes(AccessTokenExpiryMinutes));
+
+        return new TokenResponse(newAccessToken);
     }
-
 
     // Add new user
     public async Task<UserDTO> AddUserAsync(UserRegisterDTO userRegisterDTO)
@@ -111,10 +94,9 @@ public class AuthService
         }
 
         var user = _mapper.Map<User>(userRegisterDTO);
-        string passwordHash = _bcryptService.HashPassword(userRegisterDTO.PasswordHash);
-        user.PasswordHash = passwordHash;
-        var result = await _userRepository.AddUserAsync(user);
+        user.PasswordHash = _bcryptService.HashPassword(userRegisterDTO.PasswordHash);
 
+        var result = await _userRepository.AddUserAsync(user);
         return _mapper.Map<UserDTO>(result);
     }
 
@@ -122,60 +104,45 @@ public class AuthService
     public async Task<string> ForgotPassword(ForgotPasswordDTO forgotPasswordDTO)
     {
         var user = await _userRepository.GetUserByEmailAsync(forgotPasswordDTO.Email);
-
         if (user == null)
         {
-            throw new CustomException(ErrorCode.NotFound, "Email does not exist in the system.");
+            throw new CustomException(ErrorCode.NotFound, "Email does not exist.");
         }
 
-        string OTP = GenerateOTP();
-
-        string email = forgotPasswordDTO.Email;
-
-        // Khởi tạo Task để gửi email bất đồng bộ
-        _ = Task.Run(async () =>
-        {
-            try
-            {
-                await _emailService.SendOtpEmailAsync(email, OTP, user.FullName);
-            }
-            catch (Exception ex)
-            {
-                throw new CustomException(ErrorCode.BadRequest, "An error occurred during the email sending process.", ex);
-            }
-        });
-
-        string key = KeyOTP + email;
+        string OTP = GenerateSecureOTP();
+        string key = KeyOTP + forgotPasswordDTO.Email;
         _redis.StringSet(key, OTP, TimeSpan.FromMinutes(5));
 
-
-        return "OTP has been sent, please check your email.";
-    }
-
-    // Generate OTP
-    private string GenerateOTP()
-    {
-        Random random = new Random();
-        string otp = "";
-
-        for (int i = 0; i < 6; i++)
+        try
         {
-            otp += random.Next(0, 10);
+            await _emailService.SendOtpEmailAsync(forgotPasswordDTO.Email, OTP, user.FullName);
+        }
+        catch (Exception ex)
+        {
+            throw new CustomException(ErrorCode.InternalServerError, "Failed to send OTP email.", ex);
         }
 
-        return otp;
+        return "OTP has been sent. Please check your email.";
+    }
+
+    // Generate secure OTP
+    private string GenerateSecureOTP()
+    {
+        using var rng = RandomNumberGenerator.Create();
+        byte[] bytes = new byte[6];
+        rng.GetBytes(bytes);
+        return string.Concat(bytes.Select(b => (b % 10).ToString()));
     }
 
     // Verify OTP 
     public async Task<TokenResponse?> VerifyOTP(VerifyOTP_DTO request)
     {
         string key = KeyOTP + request.Email;
+        var storedOtp = await _redis.StringGetAsync(key);
 
-        var OTP = await _redis.StringGetAsync(key);
-
-        if (string.IsNullOrEmpty(OTP) || OTP != request.OTP)
+        if (string.IsNullOrEmpty(storedOtp) || storedOtp != request.OTP)
         {
-            return null;
+            throw new CustomException(ErrorCode.Unauthorized, "Invalid or expired OTP.");
         }
 
         await _redis.KeyDeleteAsync(key);
@@ -183,35 +150,69 @@ public class AuthService
         var user = await _userRepository.GetUserByEmailAsync(request.Email);
         if (user == null)
         {
-            throw new CustomException(ErrorCode.NotFound, "Email does not exist in the system.");
+            throw new CustomException(ErrorCode.NotFound, "Email does not exist.");
         }
-        var resetToken = _jwtService.CreateToken(user);
+
+        string resetToken = _jwtService.CreateToken(user);
         string keyCreateResetPass = KeyResetPassword + request.Email;
         _redis.StringSet(keyCreateResetPass, resetToken, TimeSpan.FromMinutes(5));
+
         return new TokenResponse(resetToken);
     }
 
-    public async Task<string> ResetPassword(ResetPasswordDTO request, string email){
+    public async Task<string> ResetPassword(ResetPasswordDTO request, string email)
+    {
         string keyGetToken = KeyResetPassword + email;
         var token = _redis.StringGet(keyGetToken);
 
-        if(string.IsNullOrEmpty(token)){
-            throw new CustomException(ErrorCode.Unauthorized, "Reset password token is invalid or has expired.");
+        if (string.IsNullOrEmpty(token))
+        {
+            throw new CustomException(ErrorCode.Unauthorized, "Invalid or expired reset password token.");
         }
 
         var user = await _userRepository.GetUserByEmailAsync(email);
-        if(user == null){
-            throw new CustomException(ErrorCode.NotFound, "Email does not exist in the system.");
+        if (user == null)
+        {
+            throw new CustomException(ErrorCode.NotFound, "Email does not exist.");
         }
 
-        string newPassword = _bcryptService.HashPassword(request.NewPassword);
-        user.PasswordHash = newPassword;
-
+        user.PasswordHash = _bcryptService.HashPassword(request.NewPassword);
         await _userRepository.UpdateUserAsync(user);
         await _redis.KeyDeleteAsync(keyGetToken);
+
         return "Password has been successfully reset.";
     }
 
+    // Login with Google
+    public async Task<AuthResponse> LoginWithGoogleAsync(GoogleLoginDTO googleLoginDTO)
+    {
+        var payload = await _googleService.VerifyGoogleTokenAsync(googleLoginDTO.IdToken);
+        if (payload == null)
+        {
+            throw new CustomException(ErrorCode.Unauthorized, "Invalid Google ID token.");
+        }
 
+        var user = await _userRepository.GetUserByEmailAsync(payload.Email);
+        if (user == null)
+        {
+            var newUser = new User
+            {
+                FullName = payload.Name,
+                Email = payload.Email,
+                CreatedDate = DateTime.Now
+            };
 
+            user = await _userRepository.AddUserAsync(newUser);
+        }
+        string accessToken = _jwtService.CreateToken(user);
+        string refreshToken = _jwtService.CreateRefreshToken();
+
+        string keyAccess = KeyAccessToken + user.UserId.ToString();
+        string keyRefresh = KeyRefreshToken + user.UserId.ToString();
+
+        _redis.StringSet(keyAccess, accessToken, TimeSpan.FromMinutes(AccessTokenExpiryMinutes));
+        _redis.StringSet(keyRefresh, refreshToken, TimeSpan.FromDays(RefreshTokenExpiryDays));
+
+        return new AuthResponse(accessToken, refreshToken);
+    }
 }

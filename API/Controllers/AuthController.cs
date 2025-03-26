@@ -1,4 +1,3 @@
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using API.DTOs;
 using API.DTOs.Auth;
@@ -20,13 +19,13 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> LoginAsync(UserLoginDTO userLoginDTO)
+    public async Task<IActionResult> LoginAsync(LoginDTO loginDTO)
     {
         if (!ModelState.IsValid)
         {
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
-        var result = await _authService.LoginAsync(userLoginDTO);
+        var result = await _authService.LoginAsync(loginDTO);
         ApiResponse<AuthResponse> response = new ApiResponse<AuthResponse>(200, "Success", result);
         return Ok(response);
     }
@@ -35,7 +34,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> AddUserAsync(UserRegisterDTO UserRegisterDTO)
     {
         if (!ModelState.IsValid)
-        {
+        {   
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
         var result = await _authService.AddUserAsync(UserRegisterDTO);
@@ -97,6 +96,18 @@ public class AuthController : ControllerBase
         }
         var result = await _authService.ResetPassword(request, email);
         ApiResponse<string> response = new ApiResponse<string>(200, "Success", result);
+        return Ok(response);
+    }
+
+    [HttpPost("login-google")]
+    public async Task<IActionResult> LoginWithGoogle(GoogleLoginDTO googleLoginDTO)
+    {
+        if (!ModelState.IsValid)
+        {
+            throw new CustomException(ErrorCode.BadRequest, "Invalid input");
+        }
+        var result = await _authService.LoginWithGoogleAsync(googleLoginDTO);
+        ApiResponse<AuthResponse> response = new ApiResponse<AuthResponse>(200, "Success", result);
         return Ok(response);
     }
 }
