@@ -1,8 +1,7 @@
 using API.Data;
+using API.Enum;
 using API.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 public class BookingRepository : IBookingRepository
 {
@@ -40,7 +39,7 @@ public class BookingRepository : IBookingRepository
         var booking = await _context.Bookings.FindAsync(bookingId);
         if (booking == null) return false;
 
-        booking.BookingStatus = "Cancelled";
+        booking.BookingStatus = BookingStatus.Canceled;
         await _context.SaveChangesAsync();
         return true;
     }

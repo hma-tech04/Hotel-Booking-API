@@ -1,8 +1,6 @@
 using API.DTOs;
-using API.Services;
+using API.DTOs.Response;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -21,7 +19,8 @@ namespace API.Controllers
         public async Task<IActionResult> AddBookingAsync([FromBody] BookingDTO bookingDTO)
         {
             var result = await _bookingService.AddBookingAsync(bookingDTO);
-            return CreatedAtAction(nameof(GetBookingById), new { id = result.BookingId }, result);
+            var response = new ApiResponse<BookingDTO>(201, "Booking created successfully", result);
+            return Ok(response);
         }
 
         [HttpGet("user/{userId}")]

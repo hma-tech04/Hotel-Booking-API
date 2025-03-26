@@ -1,7 +1,4 @@
 using API.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 public interface IBookingRepository
 {
     Task<Booking> AddBookingAsync(Booking booking);

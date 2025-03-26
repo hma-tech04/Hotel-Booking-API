@@ -1,9 +1,6 @@
 using API.Data;
 using API.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.Repositories
 {
@@ -80,7 +77,6 @@ namespace API.Repositories
             return room;
         }
 
-        // 🚀 Thêm các phương thức hỗ trợ ảnh phòng
         public async Task<List<RoomImage>> GetRoomImagesAsync(int roomId)
         {
             return await _context.RoomImages.Where(img => img.RoomId == roomId).ToListAsync();

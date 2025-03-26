@@ -1,12 +1,7 @@
 using API.DTOs.Response;
 using API.DTOs;
 using API.Models;
-using API.Repositories;
 using AutoMapper;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using System.Threading.Tasks;
 
 public class RoomService
 {
@@ -91,7 +86,7 @@ public class RoomService
         }).ToList();
     }
 
-    public async Task<RoomDTO> AddRoomAsync(RoomDTO roomDTO, List<IFormFile>? imageFiles = null)
+    public async Task<RoomDTO> AddRoomAsync(RoomDTO roomDTO, List<IFormFile>? imageFiles)
     {
         if (roomDTO == null)
             throw new ArgumentNullException(nameof(roomDTO), "RoomDTO cannot be null");
@@ -105,12 +100,11 @@ public class RoomService
             Price = roomDTO.Price,
             Description = roomDTO.Description,
             IsAvailable = roomDTO.IsAvailable,
-            ThumbnailUrl = null
+            ThumbnailUrl = roomDTO.ThumbnailUrl
         };
 
         var newRoom = await _roomRepository.AddRoomAsync(room);
 
-        // Xử lý lưu nhiều ảnh
         if (imageFiles != null && imageFiles.Count > 0)
         {
             var roomImages = new List<RoomImage>();
@@ -135,18 +129,20 @@ public class RoomService
                 var imageUrl = $"/images/{fileName}";
                 roomImages.Add(new RoomImage { RoomId = newRoom.RoomId, ImageUrl = imageUrl });
 
-                // Ảnh đầu tiên làm Thumbnail
-                if (room.ThumbnailUrl == null)
+                if (string.IsNullOrEmpty(newRoom.ThumbnailUrl))
                 {
-                    room.ThumbnailUrl = imageUrl;
+                    newRoom.ThumbnailUrl = imageUrl;
                 }
             }
 
             await _roomRepository.AddRoomImagesAsync(roomImages);
+
+            await _roomRepository.UpdateRoomAsync(newRoom);
         }
 
         return _mapper.Map<RoomDTO>(newRoom);
     }
+
 
 
     public async Task<RoomDTO> UpdateRoomAsync(int id, RoomDTO roomDTO, List<IFormFile>? imageFiles = null)
@@ -194,6 +190,10 @@ public class RoomService
         }
 
         var updatedRoom = await _roomRepository.UpdateRoomAsync(existingRoom);
+        if (updatedRoom == null)
+        {
+            throw new CustomException(ErrorCode.NotFound, $"No room found with ID: {id}");
+        }
         return await GetRoomByIdAsync(updatedRoom.RoomId);
     }
 

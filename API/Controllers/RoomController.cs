@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using API.DTOs;
 using API.DTOs.Response;
-using API.Services;
-using Microsoft.AspNetCore.Http;
 
 namespace API.Controllers;
 [ApiController]
@@ -58,16 +56,15 @@ public class RoomController : ControllerBase
     public async Task<IActionResult> AddRoomAsync([FromForm] RoomDTO roomDTO, [FromForm] List<IFormFile>? imageFiles)
     {
         var result = await _roomService.AddRoomAsync(roomDTO, imageFiles);
-        return CreatedAtAction(nameof(GetRoomById), new { id = result.RoomId }, new ApiResponse<RoomDTO>(201, "Room created successfully", result));
+        var response = new ApiResponse<RoomDTO>(201, "Room added successfully", result);
+        return Ok(response);
     }
+
 
 
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateRoomAsync(int id, [FromForm] RoomDTO roomDTO, [FromForm] List<IFormFile>? imageFiles)
     {
-        if (id != roomDTO.RoomId)
-            return BadRequest(new ApiResponse<string>(400, "Room ID mismatch", null));
-
         var result = await _roomService.UpdateRoomAsync(id, roomDTO, imageFiles);
         return Ok(new ApiResponse<RoomDTO>(200, "Room updated successfully", result));
     }
@@ -78,6 +75,6 @@ public class RoomController : ControllerBase
     {
         await _roomService.DeleteRoomAsync(id);
         ApiResponse<string> response = new ApiResponse<string>(200, "Room deleted successfully", null);
-        return Ok(response);
+        return Ok(response.GetResponse());
     }
 }

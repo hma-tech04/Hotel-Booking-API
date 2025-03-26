@@ -29,7 +29,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 15:00:49 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
@@ -74,7 +74,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 15:00:49 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
@@ -111,7 +111,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 15:21:32 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
@@ -148,7 +148,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 15:21:32 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
@@ -163,6 +163,88 @@
         {
           "Name": "label",
           "Value": "images/0ddf1375-d658-49db-adec-942a723f7669_The Lord of the Rings.webp"
+        }
+      ]
+    },
+    {
+      "Route": "images/69d9df25-6282-4dc7-9263-1bd7c078d127_pac-man.l8a9yap1g8.webp",
+      "AssetFile": "images/69d9df25-6282-4dc7-9263-1bd7c078d127_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 09:23:00 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "l8a9yap1g8"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        },
+        {
+          "Name": "label",
+          "Value": "images/69d9df25-6282-4dc7-9263-1bd7c078d127_pac-man.webp"
+        }
+      ]
+    },
+    {
+      "Route": "images/69d9df25-6282-4dc7-9263-1bd7c078d127_pac-man.webp",
+      "AssetFile": "images/69d9df25-6282-4dc7-9263-1bd7c078d127_pac-man.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 09:23:00 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
         }
       ]
     },
@@ -193,7 +275,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 15:02:23 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
@@ -238,7 +320,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 15:02:23 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
@@ -275,7 +357,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 15:02:15 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
@@ -320,13 +402,95 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 15:02:15 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
           "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/9a0798f8-6d85-45ff-8e71-71272894c6d3_The Lord of the Rings.webp",
+      "AssetFile": "images/9a0798f8-6d85-45ff-8e71-71272894c6d3_The Lord of the Rings.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "77130"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AmMSRQoemdOMhxpYPsqMJqeV+LOh6PKM2+nviq3zS/c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 09:23:00 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AmMSRQoemdOMhxpYPsqMJqeV+LOh6PKM2+nviq3zS/c="
+        }
+      ]
+    },
+    {
+      "Route": "images/9a0798f8-6d85-45ff-8e71-71272894c6d3_The Lord of the Rings.yvsr6rc0sw.webp",
+      "AssetFile": "images/9a0798f8-6d85-45ff-8e71-71272894c6d3_The Lord of the Rings.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "77130"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AmMSRQoemdOMhxpYPsqMJqeV+LOh6PKM2+nviq3zS/c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 09:23:00 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yvsr6rc0sw"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-AmMSRQoemdOMhxpYPsqMJqeV+LOh6PKM2+nviq3zS/c="
+        },
+        {
+          "Name": "label",
+          "Value": "images/9a0798f8-6d85-45ff-8e71-71272894c6d3_The Lord of the Rings.webp"
         }
       ]
     },
@@ -357,7 +521,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 15:02:18 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
@@ -402,13 +566,95 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 15:02:18 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
           "Value": "sha256-68nwgc1qxPH4gkjCXLfkgQNkoDujZwU6diBS8VLYJLs="
+        }
+      ]
+    },
+    {
+      "Route": "images/aceb40d7-fa20-4665-b6ad-a5abf7197afe_GreatDekuTree.elmc492ski.webp",
+      "AssetFile": "images/aceb40d7-fa20-4665-b6ad-a5abf7197afe_GreatDekuTree.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "218060"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"nprHnPDbFzTZNLEd3fQ/7LWaENPkHe2b7TcFHEptX1c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 09:23:00 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "elmc492ski"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-nprHnPDbFzTZNLEd3fQ/7LWaENPkHe2b7TcFHEptX1c="
+        },
+        {
+          "Name": "label",
+          "Value": "images/aceb40d7-fa20-4665-b6ad-a5abf7197afe_GreatDekuTree.webp"
+        }
+      ]
+    },
+    {
+      "Route": "images/aceb40d7-fa20-4665-b6ad-a5abf7197afe_GreatDekuTree.webp",
+      "AssetFile": "images/aceb40d7-fa20-4665-b6ad-a5abf7197afe_GreatDekuTree.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "218060"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"nprHnPDbFzTZNLEd3fQ/7LWaENPkHe2b7TcFHEptX1c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 09:23:00 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-nprHnPDbFzTZNLEd3fQ/7LWaENPkHe2b7TcFHEptX1c="
         }
       ]
     },
@@ -439,7 +685,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 15:02:25 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
@@ -484,7 +730,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 15:02:25 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
@@ -521,7 +767,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 14:55:23 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
@@ -566,7 +812,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 14:55:23 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
@@ -603,7 +849,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 15:02:32 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
@@ -648,7 +894,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 21 Mar 2025 15:02:32 GMT"
+          "Value": "Wed, 26 Mar 2025 09:17:30 GMT"
         }
       ],
       "EndpointProperties": [
