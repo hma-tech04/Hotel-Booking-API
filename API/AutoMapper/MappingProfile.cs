@@ -1,6 +1,7 @@
 using AutoMapper;
 using API.Models;
 using API.DTOs;
+using API.DTOs.Auth;
 public class MappingProfile : Profile
 {
     public MappingProfile()
