@@ -1,5 +1,7 @@
 
 using API.DTOs;
+using API.DTOs.EntityDTOs;
+using API.DTOs.Request;
 using API.Repositories;
 using AutoMapper;
 

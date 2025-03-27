@@ -1,6 +1,6 @@
 using API.Enum;
 
-namespace API.DTOs;
+namespace API.DTOs.EntityDTOs;
 
 public class UserDTO
 {

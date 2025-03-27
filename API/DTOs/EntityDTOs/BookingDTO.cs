@@ -1,4 +1,6 @@
-namespace API.DTOs;
+using API.Enum;
+
+namespace API.DTOs.EntityDTOs;
 
 public class BookingDTO
 {
@@ -14,7 +16,7 @@ public class BookingDTO
 
     public decimal TotalPrice { get; set; }
 
-    public string BookingStatus { get; set; } = string.Empty;
+    public BookingStatus BookingStatus { get; set; } = BookingStatus.Pending;
 
     public int? PaymentId { get; set; }
 }

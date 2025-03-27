@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using API.Enum;
+﻿using API.Enum;
 using API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,8 +38,11 @@ public partial class HotelBookingContext : DbContext
             entity.HasKey(e => e.BookingId).HasName("PK__Bookings__73951AED1E218522");
 
             entity.Property(e => e.BookingStatus)
-                .HasMaxLength(50)
-                .IsUnicode(false);
+            .HasConversion(
+                v => v.ToString(),
+                v => (BookingStatus)System.Enum.Parse(typeof(BookingStatus), v))
+            .HasMaxLength(50)
+            .IsUnicode(false);
             entity.Property(e => e.CheckInDate).HasColumnType("datetime");
             entity.Property(e => e.CheckOutDate).HasColumnType("datetime");
             entity.Property(e => e.TotalPrice).HasColumnType("decimal(10, 2)");
@@ -65,7 +66,7 @@ public partial class HotelBookingContext : DbContext
                 .HasColumnType("datetime");
             entity.Property(e => e.PaymentMethod)
                 .HasConversion(
-                    v => v.ToString(), 
+                    v => v.ToString(),
                     v => (PaymentMethod)System.Enum.Parse(typeof(PaymentMethod), v))
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -132,7 +133,7 @@ public partial class HotelBookingContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.Role)
                 .HasConversion(
-                    v => v.ToString(), 
+                    v => v.ToString(),
                     v => (UserRole)System.Enum.Parse(typeof(UserRole), v))
                 .HasMaxLength(20)
                 .IsUnicode(false);

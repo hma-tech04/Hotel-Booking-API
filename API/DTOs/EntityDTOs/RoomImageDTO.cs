@@ -1,5 +1,4 @@
-namespace API.DTOs;
-
+namespace API.DTOs.EntityDTOs;
 public class RoomImageDTO
 {
     public int ImageId { get; set; }

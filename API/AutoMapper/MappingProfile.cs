@@ -1,7 +1,8 @@
 using AutoMapper;
 using API.Models;
-using API.DTOs;
 using API.DTOs.Auth;
+using API.DTOs.Request;
+using API.DTOs.EntityDTOs;
 public class MappingProfile : Profile
 {
     public MappingProfile()
@@ -15,5 +16,6 @@ public class MappingProfile : Profile
         CreateMap<Payment, PaymentDTO>().ReverseMap();
         CreateMap<RoomImage, RoomImageDTO>().ReverseMap();
         CreateMap<UserRegisterDTO, User>();
+        CreateMap<BookingRequest, Booking>();
     }
 } 
