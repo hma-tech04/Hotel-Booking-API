@@ -3,6 +3,7 @@ using API.Models;
 using API.Repositories;
 using AutoMapper;
 using API.Hashing;
+using API.DTOs.EntityDTOs;
 namespace API.Services;
 public class UserService 
 {

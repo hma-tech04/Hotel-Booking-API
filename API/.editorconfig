@@ -2,3 +2,6 @@
 
 # IDE0022: Use block body for method
 csharp_style_expression_bodied_methods = true
+
+# IDE0320: Make anonymous function static
+csharp_prefer_static_anonymous_function = true

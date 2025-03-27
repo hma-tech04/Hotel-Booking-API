@@ -8,6 +8,7 @@ using StackExchange.Redis;
 using IDatabase = StackExchange.Redis.IDatabase;
 using API.DTOs.Auth;
 using System.Security.Cryptography;
+using API.DTOs.EntityDTOs;
 
 namespace API.Services;
 public class AuthService
@@ -100,7 +101,6 @@ public class AuthService
         return _mapper.Map<UserDTO>(result);
     }
 
-    // Forgot Password
     public async Task<string> ForgotPassword(ForgotPasswordDTO forgotPasswordDTO)
     {
         var user = await _userRepository.GetUserByEmailAsync(forgotPasswordDTO.Email);
@@ -113,17 +113,21 @@ public class AuthService
         string key = KeyOTP + forgotPasswordDTO.Email;
         _redis.StringSet(key, OTP, TimeSpan.FromMinutes(5));
 
-        try
+        _ = Task.Run(async () =>
         {
-            await _emailService.SendOtpEmailAsync(forgotPasswordDTO.Email, OTP, user.FullName);
-        }
-        catch (Exception ex)
-        {
-            throw new CustomException(ErrorCode.InternalServerError, "Failed to send OTP email.", ex);
-        }
+            try
+            {
+                await _emailService.SendOtpEmailAsync(forgotPasswordDTO.Email, OTP, user.FullName);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ErrorCode.InternalServerError, $"Failed to send OTP email: {ex.Message}");
+            }
+        });
 
         return "OTP has been sent. Please check your email.";
     }
+
 
     // Generate secure OTP
     private string GenerateSecureOTP()

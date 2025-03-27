@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using API.DTOs;
 using API.DTOs.Response;
 using API.Services;
+using API.DTOs.EntityDTOs;
 
 namespace API.Controllers;
 [ApiController]
