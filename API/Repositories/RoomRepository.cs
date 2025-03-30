@@ -94,5 +94,30 @@ namespace API.Repositories
             _context.RoomImages.RemoveRange(images);
             await _context.SaveChangesAsync();
         }
+        public async Task<List<Room>> GetAvailableRoomsAsync(DateTime checkInDate, DateTime checkOutDate, string roomType)
+        {
+            return await _context.Rooms
+                .Include(r => r.Bookings)
+                .Where(r => r.IsAvailable == true
+                            && r.RoomType == roomType
+                            && !r.Bookings.Any(b => checkInDate < b.CheckOutDate && checkOutDate > b.CheckInDate)) // Tránh xung đột đặt phòng
+                .ToListAsync();
+        }
+
+        public async Task<List<Room>> GetAvailableRoomsAsync()
+        {
+            return await _context.Rooms
+                .Include(r => r.RoomImages)
+                .Where(r => r.IsAvailable == true)
+                .ToListAsync();
+        }
+        public async Task<Room?> GetAvailableRoomsAsync(int id, DateTime checkInDate, DateTime checkOutDate)
+        {
+            return await _context.Rooms
+                .Include(r => r.Bookings)
+                .Where(r => r.RoomId == id && r.IsAvailable == true)
+                .FirstOrDefaultAsync(r => !r.Bookings.Any(b => checkInDate < b.CheckOutDate && checkOutDate > b.CheckInDate));
+        }
+
     }
 }

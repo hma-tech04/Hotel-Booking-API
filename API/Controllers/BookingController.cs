@@ -33,7 +33,8 @@ namespace API.Controllers
         public async Task<IActionResult> GetBookingsByUserId(int userId)
         {
             var result = await _bookingService.GetBookingsByUserIdAsync(userId);
-            return Ok(result);
+            ApiResponse<List<BookingDTO>> response = new ApiResponse<List<BookingDTO>>(200, "Success", result);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]

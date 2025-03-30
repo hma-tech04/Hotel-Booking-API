@@ -99,12 +99,17 @@ builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.SetMinimumLevel(LogLevel.Debug);
 
+
+// Config HttpContextAccessor
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 
 // Middleware xử lý exception
 app.UseMiddleware<ExceptionMiddleware>();
 
 // Middleware xác thực & ủy quyền
+app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 

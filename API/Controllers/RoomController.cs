@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using API.DTOs;
 using API.DTOs.Response;
 using API.DTOs.EntityDTOs;
 
@@ -37,9 +36,9 @@ public class RoomController : ControllerBase
         var rooms = await _roomService.GetRoomsByTypeAsync(roomType);
         if (rooms == null || rooms.Count == 0)
         {
-            return NotFound("No rooms found with the specified type.");
+            return NotFound(new ApiResponse<string>(404, "No rooms found for the specified type", null).GetResponse());
         }
-        return Ok(rooms);
+        return Ok(new ApiResponse<List<RoomDTO>>(200, "Success", rooms));
     }
 
     [HttpGet("{id}")]
@@ -77,5 +76,36 @@ public class RoomController : ControllerBase
         await _roomService.DeleteRoomAsync(id);
         ApiResponse<string> response = new ApiResponse<string>(200, "Room deleted successfully", null);
         return Ok(response.GetResponse());
+    }
+
+    [HttpGet("isavailable/{roomId}")]
+    public async Task<IActionResult> IsRoomAvailable(int roomId, [FromQuery] DateTime checkInDate, [FromQuery] DateTime checkOutDate)
+    {
+        try
+        {
+            bool isAvailable = await _roomService.IsRoomAvailableAsync(roomId, checkInDate, checkOutDate);
+            return Ok(new ApiResponse<bool>(200, "Room is available", isAvailable));
+        }
+        catch (CustomException ex) when (ex.Code == ErrorCode.NotFound)
+        {
+            return NotFound(new ApiResponse<string>(404, ex.Message, null).GetResponse());
+        }
+    }
+
+
+    [HttpGet("available")]
+    public async Task<IActionResult> GetAvailableRooms([FromQuery] DateTime checkInDate, [FromQuery] DateTime checkOutDate, [FromQuery] string? roomType)
+    {
+        var result = await _roomService.GetAvailableRoomsAsync(checkInDate, checkOutDate, roomType ?? string.Empty);
+        ApiResponse<List<RoomDTO>> response = new ApiResponse<List<RoomDTO>>(200, "Success", result);
+        return Ok(response);
+    }
+
+    [HttpGet("available/all")]
+    public async Task<IActionResult> GetAvailableRooms()
+    {
+        var result = await _roomService.GetAvailableRoomsAsync();
+        ApiResponse<List<RoomDTO>> response = new ApiResponse<List<RoomDTO>>(200, "Success", result);
+        return Ok(response);
     }
 }

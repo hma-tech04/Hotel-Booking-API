@@ -1,12 +1,6 @@
 using API.DTOs.Response;
-using API.DTOs;
 using API.Models;
-using API.Repositories;
 using AutoMapper;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using System.Threading.Tasks;
 using API.DTOs.EntityDTOs;
 
 public class RoomService
@@ -159,13 +153,10 @@ public class RoomService
             throw new CustomException(ErrorCode.NotFound, $"No room found with ID: {id}");
         }
 
-        // Cập nhật thông tin phòng
-        existingRoom.RoomType = roomDTO.RoomType;
-        existingRoom.Price = roomDTO.Price;
-        existingRoom.Description = roomDTO.Description;
-        existingRoom.IsAvailable = roomDTO.IsAvailable;
+        // update room properties
+        existingRoom = _mapper.Map(roomDTO, existingRoom);
 
-        // Xóa ảnh cũ nếu có ảnh mới
+        // delete old images
         if (imageFiles != null && imageFiles.Count > 0)
         {
             await _roomRepository.DeleteRoomImagesAsync(id);
@@ -185,7 +176,7 @@ public class RoomService
                 var imageUrl = $"/images/{fileName}";
                 roomImages.Add(new RoomImage { RoomId = id, ImageUrl = imageUrl });
 
-                // Ảnh đầu tiên làm Thumbnail
+                // set thumbnail if not already set
                 if (existingRoom.ThumbnailUrl == null)
                 {
                     existingRoom.ThumbnailUrl = imageUrl;
@@ -203,8 +194,7 @@ public class RoomService
         return await GetRoomByIdAsync(updatedRoom.RoomId);
     }
 
-
-    // Xóa phòng
+    // delete room
     public async Task<RoomDTO> DeleteRoomAsync(int id)
     {
         var deletedRoom = await _roomRepository.DeleteRoomAsync(id);
@@ -213,7 +203,6 @@ public class RoomService
             throw new CustomException(ErrorCode.NotFound, $"No room found with ID: {id}");
         }
 
-        // Xóa ảnh khỏi thư mục
         if (!string.IsNullOrEmpty(deletedRoom.ThumbnailUrl))
         {
             var imagePath = Path.Combine(_env.WebRootPath, deletedRoom.ThumbnailUrl.TrimStart('/'));
@@ -224,5 +213,48 @@ public class RoomService
         }
 
         return _mapper.Map<RoomDTO>(deletedRoom);
+    }
+
+    // Get room is available
+    public async Task<List<RoomDTO>> GetAvailableRoomsAsync()
+    {
+        var rooms = await _roomRepository.GetAvailableRoomsAsync();
+        return rooms.Select(room => new RoomDTO
+        {
+            RoomId = room.RoomId,
+            RoomType = room.RoomType,
+            Price = room.Price,
+            Description = room.Description,
+            ThumbnailUrl = room.ThumbnailUrl,
+            IsAvailable = room.IsAvailable,
+            RoomImages = room.RoomImages.Select(img => img.ImageUrl).ToList()
+        }).ToList();
+    }
+
+    public async Task<List<RoomDTO>> GetAvailableRoomsAsync(DateTime checkInDate, DateTime checkOutDate, string roomType)
+    {
+        var rooms = await _roomRepository.GetAvailableRoomsAsync(checkInDate, checkOutDate, roomType);
+        return rooms.Select(room => new RoomDTO
+        {
+            RoomId = room.RoomId,
+            RoomType = room.RoomType,
+            Price = room.Price,
+            Description = room.Description,
+            ThumbnailUrl = room.ThumbnailUrl,
+            IsAvailable = room.IsAvailable,
+            RoomImages = room.RoomImages.Select(img => img.ImageUrl).ToList()
+        }).ToList();
+    }
+
+    public async Task<bool> IsRoomAvailableAsync(int roomId, DateTime checkInDate, DateTime checkOutDate)
+    {
+        var room = await _roomRepository.GetRoomByIDAsync(roomId);
+        if (room == null)
+        {
+            throw new CustomException(ErrorCode.NotFound, $"No room found with ID: {roomId}");
+        }
+
+        var availableRoom = await _roomRepository.GetAvailableRoomsAsync(roomId, checkInDate, checkOutDate);
+        return availableRoom != null;
     }
 }

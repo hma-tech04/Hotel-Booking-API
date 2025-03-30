@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/2da9044b-2927-46e8-ac84-6ff52eeb717d_images.jpeg",
+      "PackagePath": "staticwebassets/images/2da9044b-2927-46e8-ac84-6ff52eeb717d_images.jpeg"
+    },
+    {
+      "Id": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/76041652-4aac-4719-bdee-2a8325e610b0_viewbiendetail1.jpg",
+      "PackagePath": "staticwebassets/images/76041652-4aac-4719-bdee-2a8325e610b0_viewbiendetail1.jpg"
+    },
+    {
+      "Id": "obj/Debug/net9.0/staticwebassets/msbuild.API.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj/Debug/net9.0/staticwebassets/msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net9.0/staticwebassets/msbuild.build.API.props",
+      "PackagePath": "build\\API.props"
+    },
+    {
+      "Id": "obj/Debug/net9.0/staticwebassets/msbuild.buildMultiTargeting.API.props",
+      "PackagePath": "buildMultiTargeting\\API.props"
+    },
+    {
+      "Id": "obj/Debug/net9.0/staticwebassets/msbuild.buildTransitive.API.props",
+      "PackagePath": "buildTransitive\\API.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
