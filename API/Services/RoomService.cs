@@ -22,32 +22,13 @@ public class RoomService
         var rooms = await _roomRepository.GetAllRoomsAsync(pageNumber, pageSize);
         int totalRecords = await _roomRepository.GetTotalRoomsCountAsync();
 
-        var roomDTOs = rooms.Select(room => new RoomDTO
-        {
-            RoomId = room.RoomId,
-            RoomType = room.RoomType,
-            Price = room.Price,
-            Description = room.Description,
-            ThumbnailUrl = room.ThumbnailUrl,
-            IsAvailable = room.IsAvailable,
-            RoomImages = room.RoomImages.Select(img => img.ImageUrl).ToList()
-        });
-
+        var roomDTOs = _mapper.Map<List<RoomDTO>>(rooms);
         return new PagedResponse<RoomDTO>(roomDTOs, pageNumber, pageSize, totalRecords);
     }
     public async Task<List<RoomDTO>> GetAllRoomsNoPagingAsync()
     {
         var rooms = await _roomRepository.GetAllRoomsNoPagingAsync();
-        var roomDTOs = rooms.Select(room => new RoomDTO
-        {
-            RoomId = room.RoomId,
-            RoomType = room.RoomType,
-            Price = room.Price,
-            Description = room.Description,
-            ThumbnailUrl = room.ThumbnailUrl,
-            IsAvailable = room.IsAvailable,
-            RoomImages = room.RoomImages.Select(img => img.ImageUrl).ToList()
-        }).ToList();
+        var roomDTOs = _mapper.Map<List<RoomDTO>>(rooms);
         return roomDTOs;
     }
 
@@ -59,31 +40,13 @@ public class RoomService
             throw new CustomException(ErrorCode.NotFound, $"No room found with ID: {id}");
         }
 
-        return new RoomDTO
-        {
-            RoomId = room.RoomId,
-            RoomType = room.RoomType,
-            Price = room.Price,
-            Description = room.Description,
-            ThumbnailUrl = room.ThumbnailUrl,
-            IsAvailable = room.IsAvailable,
-            RoomImages = room.RoomImages.Select(img => img.ImageUrl).ToList()
-        };
+        return _mapper.Map<RoomDTO>(room);
     }
 
     public async Task<List<RoomDTO>> GetRoomsByTypeAsync(string roomType)
     {
         var rooms = await _roomRepository.GetRoomsByTypeAsync(roomType);
-        return rooms.Select(room => new RoomDTO
-        {
-            RoomId = room.RoomId,
-            RoomType = room.RoomType,
-            Price = room.Price,
-            Description = room.Description,
-            ThumbnailUrl = room.ThumbnailUrl,
-            IsAvailable = room.IsAvailable,
-            RoomImages = room.RoomImages.Select(img => img.ImageUrl).ToList()
-        }).ToList();
+        return _mapper.Map<List<RoomDTO>>(rooms);
     }
 
     public async Task<RoomDTO> AddRoomAsync(RoomDTO roomDTO, List<IFormFile>? imageFiles)
@@ -94,14 +57,7 @@ public class RoomService
         if (roomDTO.Price <= 0)
             throw new ArgumentException("Price must be greater than 0.", nameof(roomDTO.Price));
 
-        var room = new Room
-        {
-            RoomType = roomDTO.RoomType,
-            Price = roomDTO.Price,
-            Description = roomDTO.Description,
-            IsAvailable = roomDTO.IsAvailable,
-            ThumbnailUrl = roomDTO.ThumbnailUrl
-        };
+        var room = _mapper.Map<Room>(roomDTO);
 
         var newRoom = await _roomRepository.AddRoomAsync(room);
 
@@ -219,31 +175,13 @@ public class RoomService
     public async Task<List<RoomDTO>> GetAvailableRoomsAsync()
     {
         var rooms = await _roomRepository.GetAvailableRoomsAsync();
-        return rooms.Select(room => new RoomDTO
-        {
-            RoomId = room.RoomId,
-            RoomType = room.RoomType,
-            Price = room.Price,
-            Description = room.Description,
-            ThumbnailUrl = room.ThumbnailUrl,
-            IsAvailable = room.IsAvailable,
-            RoomImages = room.RoomImages.Select(img => img.ImageUrl).ToList()
-        }).ToList();
+        return _mapper.Map<List<RoomDTO>>(rooms);
     }
 
     public async Task<List<RoomDTO>> GetAvailableRoomsAsync(DateTime checkInDate, DateTime checkOutDate, string roomType)
     {
         var rooms = await _roomRepository.GetAvailableRoomsAsync(checkInDate, checkOutDate, roomType);
-        return rooms.Select(room => new RoomDTO
-        {
-            RoomId = room.RoomId,
-            RoomType = room.RoomType,
-            Price = room.Price,
-            Description = room.Description,
-            ThumbnailUrl = room.ThumbnailUrl,
-            IsAvailable = room.IsAvailable,
-            RoomImages = room.RoomImages.Select(img => img.ImageUrl).ToList()
-        }).ToList();
+        return _mapper.Map<List<RoomDTO>>(rooms);
     }
 
     public async Task<bool> IsRoomAvailableAsync(int roomId, DateTime checkInDate, DateTime checkOutDate)

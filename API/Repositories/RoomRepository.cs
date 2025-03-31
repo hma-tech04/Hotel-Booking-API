@@ -43,6 +43,8 @@ namespace API.Repositories
         public async Task<List<Room>> GetRoomsByTypeAsync(string roomType)
         {
             return await _context.Rooms
+                .Include(r => r.RoomImages)
+                .Where(r => r.IsAvailable == true)
                 .Where(r => r.RoomType == roomType)
                 .ToListAsync();
         }
@@ -98,6 +100,7 @@ namespace API.Repositories
         {
             return await _context.Rooms
                 .Include(r => r.Bookings)
+                .Include(r => r.RoomImages)
                 .Where(r => r.IsAvailable == true
                             && r.RoomType == roomType
                             && !r.Bookings.Any(b => checkInDate < b.CheckOutDate && checkOutDate > b.CheckInDate)) // Tránh xung đột đặt phòng
@@ -115,7 +118,7 @@ namespace API.Repositories
         {
             return await _context.Rooms
                 .Include(r => r.Bookings)
-                .Where(r => r.RoomId == id && r.IsAvailable == true)
+                .Where(r => r.RoomId == id)
                 .FirstOrDefaultAsync(r => !r.Bookings.Any(b => checkInDate < b.CheckOutDate && checkOutDate > b.CheckInDate));
         }
 
