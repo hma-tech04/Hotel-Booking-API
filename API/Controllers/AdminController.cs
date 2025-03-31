@@ -1,4 +1,5 @@
-using API.DTOs;
+using API.DTOs.EntityDTOs;
+using API.DTOs.Request;
 using API.DTOs.Response;
 using Microsoft.AspNetCore.Mvc;
 

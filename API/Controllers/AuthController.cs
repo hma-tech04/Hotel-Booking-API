@@ -1,6 +1,6 @@
 using System.Security.Claims;
-using API.DTOs;
 using API.DTOs.Auth;
+using API.DTOs.EntityDTOs;
 using API.DTOs.Response;
 using API.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -34,7 +34,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> AddUserAsync(UserRegisterDTO UserRegisterDTO)
     {
         if (!ModelState.IsValid)
-        {   
+        {
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
         var result = await _authService.AddUserAsync(UserRegisterDTO);
@@ -43,15 +43,28 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("refresh-token")]
-    public async Task<IActionResult> RenewToken(RefreshTokenRequest refreshTokenRequest)
+    public async Task<IActionResult> RenewToken()
     {
+        var refreshToken = Request.Cookies["refreshToken"];
+        if (string.IsNullOrEmpty(refreshToken))
+        {
+            throw new CustomException(ErrorCode.Unauthorized, "Token is invalid or has expired.");
+        }
+
+        var userId = _authService.GetUserIdFromRefreshToken(refreshToken);
+        if (string.IsNullOrEmpty(userId.ToString()))
+        {
+            throw new CustomException(ErrorCode.Unauthorized, "Token is invalid or has expired.");
+        }
+
+        var refreshTokenRequest = new RefreshTokenRequest(userId, refreshToken);
         if (!ModelState.IsValid)
         {
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
+
         var result = await _authService.RenewAccessToken(refreshTokenRequest);
-        ApiResponse<TokenResponse> response = new ApiResponse<TokenResponse>(200, "Success", result);
-        return Ok(response);
+        return Ok(new ApiResponse<TokenResponse>(200, "Success", result));
     }
 
     [HttpPost("forgot-password")]
@@ -110,4 +123,6 @@ public class AuthController : ControllerBase
         ApiResponse<AuthResponse> response = new ApiResponse<AuthResponse>(200, "Success", result);
         return Ok(response);
     }
+
+
 }

@@ -1,4 +1,6 @@
 ﻿
+using API.Enum;
+
 namespace API.Models;
 
 public partial class Booking
@@ -15,7 +17,7 @@ public partial class Booking
 
     public decimal TotalPrice { get; set; }
 
-    public string BookingStatus { get; set; } = null!;
+    public BookingStatus BookingStatus { get; set; } = BookingStatus.Pending;
 
     public int? PaymentId { get; set; }
 

@@ -24,13 +24,13 @@ public class TokenService
     public string CreateToken(User user)
     {
         var claims = new List<Claim>
-    {
-        new Claim(JwtRegisteredClaimNames.NameId, user.UserId.ToString()),
-        new Claim(JwtRegisteredClaimNames.Email, user.Email),
-        new Claim(JwtRegisteredClaimNames.GivenName, user.FullName),
-        new Claim(ClaimTypes.Role, user.Role.ToString()),
-        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-    };
+        {
+            new Claim(JwtRegisteredClaimNames.NameId, user.UserId.ToString()),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(JwtRegisteredClaimNames.GivenName, user.FullName),
+            new Claim(ClaimTypes.Role, user.Role.ToString()),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
 
         var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
@@ -49,13 +49,30 @@ public class TokenService
     }
 
 
-    public string CreateRefreshToken()
+    public string CreateRefreshToken(User user)
     {
-        var randomBytes = new byte[32];
-        using (var rng = RandomNumberGenerator.Create())
+         var claims = new List<Claim>
         {
-            rng.GetBytes(randomBytes);
-        }
-        return Convert.ToBase64String(randomBytes);
+            new Claim(JwtRegisteredClaimNames.NameId, user.UserId.ToString()),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(JwtRegisteredClaimNames.GivenName, user.FullName),
+            new Claim(ClaimTypes.Role, user.Role.ToString()),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
+
+        var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(claims),
+            Expires = DateTime.Now.AddDays(15),
+            SigningCredentials = creds,
+            Issuer = _issuer,
+            Audience = _audience
+        };
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(token);
     }
 }

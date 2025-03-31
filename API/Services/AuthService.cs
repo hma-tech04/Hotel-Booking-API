@@ -8,6 +8,8 @@ using StackExchange.Redis;
 using IDatabase = StackExchange.Redis.IDatabase;
 using API.DTOs.Auth;
 using System.Security.Cryptography;
+using API.DTOs.EntityDTOs;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace API.Services;
 public class AuthService
@@ -25,10 +27,11 @@ public class AuthService
     private readonly TokenService _jwtService;
     private readonly IDatabase _redis;
     private readonly EmailService _emailService;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     private readonly GoogleService _googleService;
 
-    public AuthService(IUserRepository userRepository, TokenService jwtService, IMapper IMapper, IConnectionMultiplexer redis, EmailService emailService, GoogleService googleService)
+    public AuthService(IUserRepository userRepository, TokenService jwtService, IMapper IMapper, IConnectionMultiplexer redis, EmailService emailService, GoogleService googleService, IHttpContextAccessor httpContextAccessor)
     {
         _userRepository = userRepository;
         _bcryptService = new BcryptService();
@@ -37,6 +40,7 @@ public class AuthService
         _redis = redis.GetDatabase();
         _emailService = emailService;
         _googleService = googleService;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     // Login user
@@ -49,15 +53,29 @@ public class AuthService
         }
 
         string accessToken = _jwtService.CreateToken(user);
-        string refreshToken = _jwtService.CreateRefreshToken();
+        string refreshToken = _jwtService.CreateRefreshToken(user);
+        // stote refresh token on cookie
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.None,
+            Expires = DateTimeOffset.UtcNow.AddDays(RefreshTokenExpiryDays)
+        };
 
+        // Set the cookie in the response
+        var httpContext = _httpContextAccessor?.HttpContext ?? throw new CustomException(ErrorCode.InternalServerError, "HttpContext is not available.");
+        httpContext.Response.Cookies.Delete("refreshToken");
+        httpContext.Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
+
+        // Store tokens in Redis
         string keyAccess = KeyAccessToken + user.UserId.ToString();
         string keyRefresh = KeyRefreshToken + user.UserId.ToString();
 
         _redis.StringSet(keyAccess, accessToken, TimeSpan.FromMinutes(AccessTokenExpiryMinutes));
         _redis.StringSet(keyRefresh, refreshToken, TimeSpan.FromDays(RefreshTokenExpiryDays));
 
-        return new AuthResponse(accessToken, refreshToken);
+        return new AuthResponse(accessToken);
     }
 
     // Generate new token via refresh
@@ -100,7 +118,6 @@ public class AuthService
         return _mapper.Map<UserDTO>(result);
     }
 
-    // Forgot Password
     public async Task<string> ForgotPassword(ForgotPasswordDTO forgotPasswordDTO)
     {
         var user = await _userRepository.GetUserByEmailAsync(forgotPasswordDTO.Email);
@@ -113,17 +130,21 @@ public class AuthService
         string key = KeyOTP + forgotPasswordDTO.Email;
         _redis.StringSet(key, OTP, TimeSpan.FromMinutes(5));
 
-        try
+        _ = Task.Run(async () =>
         {
-            await _emailService.SendOtpEmailAsync(forgotPasswordDTO.Email, OTP, user.FullName);
-        }
-        catch (Exception ex)
-        {
-            throw new CustomException(ErrorCode.InternalServerError, "Failed to send OTP email.", ex);
-        }
+            try
+            {
+                await _emailService.SendOtpEmailAsync(forgotPasswordDTO.Email, OTP, user.FullName);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ErrorCode.InternalServerError, $"Failed to send OTP email: {ex.Message}");
+            }
+        });
 
         return "OTP has been sent. Please check your email.";
     }
+
 
     // Generate secure OTP
     private string GenerateSecureOTP()
@@ -205,14 +226,43 @@ public class AuthService
             user = await _userRepository.AddUserAsync(newUser);
         }
         string accessToken = _jwtService.CreateToken(user);
-        string refreshToken = _jwtService.CreateRefreshToken();
+        string refreshToken = _jwtService.CreateRefreshToken(user);
 
+        // stote refresh token on cookie
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.None,
+            Expires = DateTimeOffset.UtcNow.AddDays(RefreshTokenExpiryDays)
+        };
+
+        // Set the cookie in the response
+        var httpContext = _httpContextAccessor?.HttpContext ?? throw new CustomException(ErrorCode.InternalServerError, "HttpContext is not available.");
+        httpContext.Response.Cookies.Delete("refreshToken");
+        httpContext.Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
+
+        // Store tokens in Redis
         string keyAccess = KeyAccessToken + user.UserId.ToString();
         string keyRefresh = KeyRefreshToken + user.UserId.ToString();
 
         _redis.StringSet(keyAccess, accessToken, TimeSpan.FromMinutes(AccessTokenExpiryMinutes));
         _redis.StringSet(keyRefresh, refreshToken, TimeSpan.FromDays(RefreshTokenExpiryDays));
 
-        return new AuthResponse(accessToken, refreshToken);
+        return new AuthResponse(accessToken);
+    }
+    // get user id from refresh token
+    public int GetUserIdFromRefreshToken(string refreshToken)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var token = tokenHandler.ReadJwtToken(refreshToken);
+
+        var nameIdClaim = token.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.NameId);
+        // Check if the claim exists
+        if (nameIdClaim == null)
+        {
+            throw new CustomException(ErrorCode.Unauthorized, "Invalid token.");
+        }
+        return int.Parse(nameIdClaim.Value);
     }
 }

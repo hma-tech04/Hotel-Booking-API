@@ -347,6 +347,7 @@
 /Users/huynhminhanh/Documents/Project/Hotel-Booking-API/API/obj/Debug/net9.0/ref/API.dll
 /Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/bin/Debug/net9.0/appsettings.Development.json
 /Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/bin/Debug/net9.0/appsettings.json
+/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/bin/Debug/net9.0/API.staticwebassets.runtime.json
 /Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/bin/Debug/net9.0/API.staticwebassets.endpoints.json
 /Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/bin/Debug/net9.0/API
 /Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/bin/Debug/net9.0/API.deps.json
