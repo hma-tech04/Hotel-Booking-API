@@ -17,6 +17,9 @@ public partial class Booking
 
     public decimal TotalPrice { get; set; }
 
+    public DateTime? ActualCheckInTime { get; set; }  
+    public DateTime? ActualCheckOutTime { get; set; } 
+
     public BookingStatus BookingStatus { get; set; } = BookingStatus.Pending;
 
     public int? PaymentId { get; set; }

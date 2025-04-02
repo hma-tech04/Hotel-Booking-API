@@ -1,5 +1,6 @@
 using API.Data;
 using API.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories
@@ -86,16 +87,26 @@ namespace API.Repositories
 
         public async Task AddRoomImagesAsync(List<RoomImage> images)
         {
-            _context.RoomImages.AddRange(images);
-            await _context.SaveChangesAsync();
+            if (images != null && images.Any())
+            {
+                var query = "INSERT INTO RoomImages (RoomId, ImageUrl) VALUES (@RoomId, @ImageUrl)";
+                foreach (var image in images)
+                {
+                    await _context.Database.ExecuteSqlRawAsync(query,
+                        new SqlParameter("@RoomId", image.RoomId),
+                        new SqlParameter("@ImageUrl", image.ImageUrl));
+                }
+            }
         }
 
         public async Task DeleteRoomImagesAsync(int roomId)
         {
-            var images = await _context.RoomImages.Where(img => img.RoomId == roomId).ToListAsync();
-            _context.RoomImages.RemoveRange(images);
-            await _context.SaveChangesAsync();
+            string query = "DELETE FROM RoomImages WHERE RoomId = @RoomID";
+            await _context.Database.ExecuteSqlRawAsync(query,
+                new SqlParameter("@RoomID", roomId)
+            );
         }
+
         public async Task<List<Room>> GetAvailableRoomsAsync(DateTime checkInDate, DateTime checkOutDate, string roomType)
         {
             return await _context.Rooms

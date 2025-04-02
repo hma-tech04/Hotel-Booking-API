@@ -24,7 +24,7 @@ namespace API.Controllers
                 throw new CustomException(ErrorCode.BadRequest, "Invalid input");
             }
             var result = await _bookingService.AddBookingAsync(request);
-            var response = new ApiResponse<BookingDTO>(201, "Booking created successfully", result);
+            var response = new ApiResponse<BookingDTO>(ErrorCode.OK, "Booking created successfully", result);
             return Ok(response);
         }
 
@@ -32,7 +32,7 @@ namespace API.Controllers
         public async Task<IActionResult> GetBookingsByUserId(int userId)
         {
             var result = await _bookingService.GetBookingsByUserIdAsync(userId);
-            ApiResponse<List<BookingDTO>> response = new ApiResponse<List<BookingDTO>>(200, "Success", result);
+            ApiResponse<List<BookingDTO>> response = new ApiResponse<List<BookingDTO>>(ErrorCode.OK, "Success", result);
             return Ok(response);
         }
 
@@ -40,8 +40,16 @@ namespace API.Controllers
         public async Task<IActionResult> GetBookingById(int id)
         {
             var result = await _bookingService.GetBookingByIdAsync(id);
-            var response = new ApiResponse<BookingDTO>(200, "Success", result);
+            var response = new ApiResponse<BookingDTO>(ErrorCode.OK, "Success", result);
             return Ok(response.GetResponse());
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> GetAllBooking()
+        {
+            var result = await _bookingService.GetAllBookingAsync();
+            ApiResponse<List<BookingDTO>> response = new ApiResponse<List<BookingDTO>>(ErrorCode.OK, "Success", result);
+            return Ok(response);
         }
 
         [HttpPut("{id}/cancel")]
@@ -51,10 +59,40 @@ namespace API.Controllers
             ApiResponse<Boolean> response;
             if (!success)
             {
-                response = new ApiResponse<Boolean>(400, "Cancel booking failed", success);
+                response = new ApiResponse<Boolean>(ErrorCode.BadRequest, "Cancel booking failed", success);
                 return NotFound(response);
             }
-            response = new ApiResponse<Boolean>(200, "Booking cancelled successfully", success);
+            response = new ApiResponse<Boolean>(ErrorCode.OK, "Booking cancelled successfully", success);
+
+            return Ok(response);
+        }
+
+        [HttpPost("check-in/{id}")]
+        public async Task<IActionResult> CheckInBooking(int id)
+        {
+            bool success = await _bookingService.CheckInBooking(id);
+            ApiResponse<bool> response;
+            if (!success)
+            {
+                response = new ApiResponse<bool>(ErrorCode.BadRequest, "Check in booking failed", success);
+                return NotFound(response);
+            }
+            response = new ApiResponse<bool>(ErrorCode.OK, "Check in successfully", success);
+
+            return Ok(response);
+        }
+
+        [HttpPost("check-out/{id}")]
+        public async Task<IActionResult> CheckOutBooking(int id)
+        {
+            bool success = await _bookingService.CheckOutBooking(id);
+            ApiResponse<bool> response;
+            if (!success)
+            {
+                response = new ApiResponse<bool>(ErrorCode.OK, "Check out booking failed", success);
+                return NotFound(response);
+            }
+            response = new ApiResponse<bool>(ErrorCode.OK, "Check out successfully", success);
 
             return Ok(response);
         }
