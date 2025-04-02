@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "H5G4RM5Gm7Qcaz3DRMoNm5O8Wllt68ZrnJ1KmBMTBwQ=",
+  "Hash": "NHJ19kHnaVGenighquqlc6mc4ZovHtgP+SvjYmasOtg=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/2da9044b-2927-46e8-ac84-6ff52eeb717d_images.jpeg",
+      "Identity": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg",
       "SourceId": "API",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/",
       "BasePath": "_content/API",
-      "RelativePath": "images/2da9044b-2927-46e8-ac84-6ff52eeb717d_images#[.{fingerprint}]?.jpeg",
+      "RelativePath": "images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -31,19 +31,19 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "nvbcsfk8d7",
-      "Integrity": "Iz+OqHM7hNgpgo5x8aHCxFMEgNHKfrb9oJo62C1uHwU=",
+      "Fingerprint": "7tgc4ou1l5",
+      "Integrity": "5Rs2dd7iMK28kxRqYZHEDe8quBPIbild96dHMzk6mYs=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/images/2da9044b-2927-46e8-ac84-6ff52eeb717d_images.jpeg"
+      "OriginalItemSpec": "wwwroot/images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg"
     },
     {
-      "Identity": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/76041652-4aac-4719-bdee-2a8325e610b0_viewbiendetail1.jpg",
+      "Identity": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg",
       "SourceId": "API",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/",
       "BasePath": "_content/API",
-      "RelativePath": "images/76041652-4aac-4719-bdee-2a8325e610b0_viewbiendetail1#[.{fingerprint}]?.jpg",
+      "RelativePath": "images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -52,17 +52,17 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "xjxim49p68",
-      "Integrity": "o0+y7WI2c7q7R8/DX5BZnDxV6irmjeMXAm8j/o0Jurg=",
+      "Fingerprint": "8zj8c1frn8",
+      "Integrity": "JPcdMfDrug0jOTbbZkNngNOBLUNfLAOKYLlkq/J6U8M=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/images/76041652-4aac-4719-bdee-2a8325e610b0_viewbiendetail1.jpg"
+      "OriginalItemSpec": "wwwroot/images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg"
     }
   ],
   "Endpoints": [
     {
-      "Route": "images/2da9044b-2927-46e8-ac84-6ff52eeb717d_images.jpeg",
-      "AssetFile": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/2da9044b-2927-46e8-ac84-6ff52eeb717d_images.jpeg",
+      "Route": "images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.7tgc4ou1l5.jpg",
+      "AssetFile": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -71,7 +71,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "11213"
+          "Value": "121684"
         },
         {
           "Name": "Content-Type",
@@ -79,48 +79,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Iz+OqHM7hNgpgo5x8aHCxFMEgNHKfrb9oJo62C1uHwU=\""
+          "Value": "\"5Rs2dd7iMK28kxRqYZHEDe8quBPIbild96dHMzk6mYs=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 30 Mar 2025 06:48:26 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-Iz+OqHM7hNgpgo5x8aHCxFMEgNHKfrb9oJo62C1uHwU="
-        }
-      ]
-    },
-    {
-      "Route": "images/2da9044b-2927-46e8-ac84-6ff52eeb717d_images.nvbcsfk8d7.jpeg",
-      "AssetFile": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/2da9044b-2927-46e8-ac84-6ff52eeb717d_images.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "11213"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Iz+OqHM7hNgpgo5x8aHCxFMEgNHKfrb9oJo62C1uHwU=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 30 Mar 2025 06:48:26 GMT"
+          "Value": "Tue, 01 Apr 2025 17:08:35 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -130,21 +93,21 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "nvbcsfk8d7"
+          "Value": "7tgc4ou1l5"
         },
         {
           "Name": "label",
-          "Value": "images/2da9044b-2927-46e8-ac84-6ff52eeb717d_images.jpeg"
+          "Value": "images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-Iz+OqHM7hNgpgo5x8aHCxFMEgNHKfrb9oJo62C1uHwU="
+          "Value": "sha256-5Rs2dd7iMK28kxRqYZHEDe8quBPIbild96dHMzk6mYs="
         }
       ]
     },
     {
-      "Route": "images/76041652-4aac-4719-bdee-2a8325e610b0_viewbiendetail1.jpg",
-      "AssetFile": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/76041652-4aac-4719-bdee-2a8325e610b0_viewbiendetail1.jpg",
+      "Route": "images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg",
+      "AssetFile": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -153,7 +116,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "187806"
+          "Value": "121684"
         },
         {
           "Name": "Content-Type",
@@ -161,11 +124,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"o0+y7WI2c7q7R8/DX5BZnDxV6irmjeMXAm8j/o0Jurg=\""
+          "Value": "\"5Rs2dd7iMK28kxRqYZHEDe8quBPIbild96dHMzk6mYs=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 30 Mar 2025 06:48:26 GMT"
+          "Value": "Tue, 01 Apr 2025 17:08:35 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -175,13 +138,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-o0+y7WI2c7q7R8/DX5BZnDxV6irmjeMXAm8j/o0Jurg="
+          "Value": "sha256-5Rs2dd7iMK28kxRqYZHEDe8quBPIbild96dHMzk6mYs="
         }
       ]
     },
     {
-      "Route": "images/76041652-4aac-4719-bdee-2a8325e610b0_viewbiendetail1.xjxim49p68.jpg",
-      "AssetFile": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/76041652-4aac-4719-bdee-2a8325e610b0_viewbiendetail1.jpg",
+      "Route": "images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.8zj8c1frn8.jpg",
+      "AssetFile": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -190,7 +153,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "187806"
+          "Value": "762820"
         },
         {
           "Name": "Content-Type",
@@ -198,11 +161,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"o0+y7WI2c7q7R8/DX5BZnDxV6irmjeMXAm8j/o0Jurg=\""
+          "Value": "\"JPcdMfDrug0jOTbbZkNngNOBLUNfLAOKYLlkq/J6U8M=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 30 Mar 2025 06:48:26 GMT"
+          "Value": "Tue, 01 Apr 2025 17:08:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -212,15 +175,52 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "xjxim49p68"
+          "Value": "8zj8c1frn8"
         },
         {
           "Name": "label",
-          "Value": "images/76041652-4aac-4719-bdee-2a8325e610b0_viewbiendetail1.jpg"
+          "Value": "images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-o0+y7WI2c7q7R8/DX5BZnDxV6irmjeMXAm8j/o0Jurg="
+          "Value": "sha256-JPcdMfDrug0jOTbbZkNngNOBLUNfLAOKYLlkq/J6U8M="
+        }
+      ]
+    },
+    {
+      "Route": "images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg",
+      "AssetFile": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "762820"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JPcdMfDrug0jOTbbZkNngNOBLUNfLAOKYLlkq/J6U8M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 17:08:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-JPcdMfDrug0jOTbbZkNngNOBLUNfLAOKYLlkq/J6U8M="
         }
       ]
     }

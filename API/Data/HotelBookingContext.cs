@@ -34,27 +34,31 @@ public partial class HotelBookingContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Booking>(entity =>
-        {
-            entity.HasKey(e => e.BookingId).HasName("PK__Bookings__73951AED1E218522");
+    {
+        entity.HasKey(e => e.BookingId).HasName("PK__Bookings__73951AED1E218522");
 
-            entity.Property(e => e.BookingStatus)
+        entity.Property(e => e.BookingStatus)
             .HasConversion(
                 v => v.ToString(),
                 v => (BookingStatus)System.Enum.Parse(typeof(BookingStatus), v))
             .HasMaxLength(50)
             .IsUnicode(false);
-            entity.Property(e => e.CheckInDate).HasColumnType("datetime");
-            entity.Property(e => e.CheckOutDate).HasColumnType("datetime");
-            entity.Property(e => e.TotalPrice).HasColumnType("decimal(10, 2)");
 
-            entity.HasOne(d => d.Room).WithMany(p => p.Bookings)
-                .HasForeignKey(d => d.RoomId)
-                .HasConstraintName("FK__Bookings__RoomId__440B1D61");
+        entity.Property(e => e.CheckInDate).HasColumnType("datetime");
+        entity.Property(e => e.CheckOutDate).HasColumnType("datetime");
+        entity.Property(e => e.TotalPrice).HasColumnType("decimal(10, 2)");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Bookings)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Bookings__UserId__4316F928");
-        });
+        entity.Property(e => e.ActualCheckInTime).HasColumnType("datetime").IsRequired(false);
+        entity.Property(e => e.ActualCheckOutTime).HasColumnType("datetime").IsRequired(false);
+
+        entity.HasOne(d => d.Room).WithMany(p => p.Bookings)
+            .HasForeignKey(d => d.RoomId)
+            .HasConstraintName("FK__Bookings__RoomId__440B1D61");
+
+        entity.HasOne(d => d.User).WithMany(p => p.Bookings)
+            .HasForeignKey(d => d.UserId)
+            .HasConstraintName("FK__Bookings__UserId__4316F928");
+    });
 
         modelBuilder.Entity<Payment>(entity =>
         {
@@ -86,7 +90,8 @@ public partial class HotelBookingContext : DbContext
         {
             entity.HasKey(e => e.RoomId).HasName("PK__Rooms__32863939B4B84EC6");
 
-            entity.Property(e => e.Description).HasColumnType("text");
+            entity.Property(e => e.Description).HasColumnType("text")
+                .IsUnicode(true);
             entity.Property(e => e.IsAvailable).HasDefaultValue(true);
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.RoomType)

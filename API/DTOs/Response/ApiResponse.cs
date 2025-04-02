@@ -4,9 +4,9 @@ public class ApiResponse<T>
     public int Code { get; set; }
     public string Message { get; set; }
     public T? Data { get; set; }
-    public ApiResponse(int Code, string Message, T? Data = default)
+    public ApiResponse(ErrorCode Code, string Message, T? Data = default)
     {
-        this.Code = Code;
+        this.Code = (int)Code;
         this.Message = Message;
         this.Data = Data;
     }

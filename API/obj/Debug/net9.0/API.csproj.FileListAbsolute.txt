@@ -419,6 +419,7 @@
 /Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/bin/Debug/net9.0/System.IdentityModel.Tokens.Jwt.dll
 /Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/bin/Debug/net9.0/System.Management.dll
 /Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/bin/Debug/net9.0/System.Memory.Data.dll
+/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/bin/Debug/net9.0/System.Net.WebSockets.WebSocketProtocol.dll
 /Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/bin/Debug/net9.0/System.Runtime.Caching.dll
 /Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/bin/Debug/net9.0/System.Security.Cryptography.ProtectedData.dll
 /Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/bin/Debug/net9.0/System.Security.Permissions.dll

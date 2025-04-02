@@ -1,12 +1,12 @@
 {
   "Files": [
     {
-      "Id": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/2da9044b-2927-46e8-ac84-6ff52eeb717d_images.jpeg",
-      "PackagePath": "staticwebassets/images/2da9044b-2927-46e8-ac84-6ff52eeb717d_images.jpeg"
+      "Id": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg",
+      "PackagePath": "staticwebassets/images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg"
     },
     {
-      "Id": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/76041652-4aac-4719-bdee-2a8325e610b0_viewbiendetail1.jpg",
-      "PackagePath": "staticwebassets/images/76041652-4aac-4719-bdee-2a8325e610b0_viewbiendetail1.jpg"
+      "Id": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg",
+      "PackagePath": "staticwebassets/images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg"
     },
     {
       "Id": "obj/Debug/net9.0/staticwebassets/msbuild.API.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
