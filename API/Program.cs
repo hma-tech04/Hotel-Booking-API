@@ -80,6 +80,10 @@ builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<RoomService>();
 builder.Services.AddScoped<BookingService>();
+builder.Services.AddScoped<VNPayService>();
+builder.Services.AddScoped<SignatureService>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<PaymentService>();
 
 // Config Controller
 builder.Services.AddControllers()
@@ -88,7 +92,6 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
-// Tắt xử lý validation mặc định của ASP.NET Core
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = false;
@@ -100,6 +103,18 @@ builder.Logging.AddConsole();
 builder.Logging.SetMinimumLevel(LogLevel.Debug);
 
 
+// Config CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000") 
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
+
 // Config HttpContextAccessor
 builder.Services.AddHttpContextAccessor();
 
@@ -107,6 +122,8 @@ var app = builder.Build();
 
 // Middleware xử lý exception
 app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseCors("AllowSpecificOrigin");
 
 // Middleware xác thực & ủy quyền
 app.UseStaticFiles();

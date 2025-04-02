@@ -13,8 +13,12 @@ public class BookingDTO
     public DateTime CheckInDate { get; set; }
 
     public DateTime CheckOutDate { get; set; }
+    
+    public DateTime? ActualCheckInTime { get; set; }  
 
-    public decimal TotalPrice { get; set; }
+    public DateTime? ActualCheckOutTime { get; set; } 
+
+    public decimal? TotalPrice { get; set; }
 
     public BookingStatus BookingStatus { get; set; } = BookingStatus.Pending;
 

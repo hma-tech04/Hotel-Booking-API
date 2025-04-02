@@ -1,3 +1,5 @@
+using API.Enum;
+
 namespace API.DTOs.EntityDTOs;
 
 public class PaymentDTO
@@ -6,11 +8,11 @@ public class PaymentDTO
 
     public int BookingId { get; set; }
 
-    public DateTime? PaymentDate { get; set; }
+    public DateTime PaymentDate { get; set; } = DateTime.Now;
 
     public decimal PaymentAmount { get; set; }
 
-    public string PaymentMethod { get; set; } = string.Empty;
+    public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.VNPAY;
 
-    public string PaymentStatus { get; set; } = string.Empty;
+    public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
 }

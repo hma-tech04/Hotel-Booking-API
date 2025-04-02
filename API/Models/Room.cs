@@ -10,7 +10,7 @@ public partial class Room
 
     public string? Description { get; set; }
 
-    public string? ThumbnailUrl { get; set; }
+    public required string ThumbnailUrl { get; set; }
 
     public bool? IsAvailable { get; set; }
 

@@ -18,7 +18,7 @@ public class UserController : ControllerBase{
     public async Task<IActionResult> GetUserByIDAsync(int id)
     {
         var result = await _userService.GetUserByIdAsync(id);
-        ApiResponse<UserDTO> response = new ApiResponse<UserDTO>(200, "Success", result);
+        ApiResponse<UserDTO> response = new ApiResponse<UserDTO>(ErrorCode.OK, "Success", result);
         return Ok(response);
     }
 
@@ -26,7 +26,7 @@ public class UserController : ControllerBase{
     public async Task<IActionResult> GetUserByEmailAsync(string email)
     {
         var result = await _userService.GetUserByEmailAsync(email);
-        ApiResponse<UserDTO> response = new ApiResponse<UserDTO>(200, "Success", result);
+        ApiResponse<UserDTO> response = new ApiResponse<UserDTO>(ErrorCode.OK, "Success", result);
         return Ok(response);
     }
 
@@ -38,7 +38,7 @@ public class UserController : ControllerBase{
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
         var result = await _userService.UpdateUserAsync(userDTO);
-        ApiResponse<UserDTO> response = new ApiResponse<UserDTO>(200, "Success", result);
+        ApiResponse<UserDTO> response = new ApiResponse<UserDTO>(ErrorCode.OK, "Success", result);
         return Ok(response);
     }
 }

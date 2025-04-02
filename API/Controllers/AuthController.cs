@@ -26,7 +26,7 @@ public class AuthController : ControllerBase
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
         var result = await _authService.LoginAsync(loginDTO);
-        ApiResponse<AuthResponse> response = new ApiResponse<AuthResponse>(200, "Success", result);
+        ApiResponse<AuthResponse> response = new ApiResponse<AuthResponse>(ErrorCode.OK, "Success", result);
         return Ok(response);
     }
 
@@ -38,7 +38,7 @@ public class AuthController : ControllerBase
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
         var result = await _authService.AddUserAsync(UserRegisterDTO);
-        ApiResponse<UserDTO> response = new ApiResponse<UserDTO>(200, "Success", result);
+        ApiResponse<UserDTO> response = new ApiResponse<UserDTO>(ErrorCode.OK, "Success", result);
         return Ok(response);
     }
 
@@ -64,7 +64,7 @@ public class AuthController : ControllerBase
         }
 
         var result = await _authService.RenewAccessToken(refreshTokenRequest);
-        return Ok(new ApiResponse<TokenResponse>(200, "Success", result));
+        return Ok(new ApiResponse<TokenResponse>(ErrorCode.OK, "Success", result));
     }
 
     [HttpPost("forgot-password")]
@@ -75,7 +75,7 @@ public class AuthController : ControllerBase
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
         var result = await _authService.ForgotPassword(forgotPasswordDTO);
-        ApiResponse<string> response = new ApiResponse<string>(200, result);
+        ApiResponse<string> response = new ApiResponse<string>(ErrorCode.OK, result);
         return Ok(response.GetResponse());
     }
 
@@ -90,11 +90,11 @@ public class AuthController : ControllerBase
         ApiResponse<TokenResponse> response;
         if (result == null)
         {
-            response = new ApiResponse<TokenResponse>((int)ErrorCode.Unauthorized, "OTP is invalid or has expired.", null);
+            response = new ApiResponse<TokenResponse>(ErrorCode.Unauthorized, "OTP is invalid or has expired.", null);
         }
         else
         {
-            response = new ApiResponse<TokenResponse>(200, "Success", result);
+            response = new ApiResponse<TokenResponse>(ErrorCode.OK, "Success", result);
         }
         return Ok(response.GetResponse());
     }
@@ -108,7 +108,7 @@ public class AuthController : ControllerBase
             throw new CustomException(ErrorCode.BadRequest, "Token is invalid or has expired.");
         }
         var result = await _authService.ResetPassword(request, email);
-        ApiResponse<string> response = new ApiResponse<string>(200, "Success", result);
+        ApiResponse<string> response = new ApiResponse<string>(ErrorCode.OK, "Success", result);
         return Ok(response);
     }
 
@@ -120,7 +120,7 @@ public class AuthController : ControllerBase
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
         var result = await _authService.LoginWithGoogleAsync(googleLoginDTO);
-        ApiResponse<AuthResponse> response = new ApiResponse<AuthResponse>(200, "Success", result);
+        ApiResponse<AuthResponse> response = new ApiResponse<AuthResponse>(ErrorCode.OK, "Success", result);
         return Ok(response);
     }
 
