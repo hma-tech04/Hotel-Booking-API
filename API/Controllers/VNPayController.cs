@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using API.DTOs.Response;
 using API.DTOs.PaymentDTO;
 using DTOs.Signature;
+using Microsoft.AspNetCore.Authorization;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -16,6 +17,8 @@ public class VNPayController : ControllerBase
         _signatureService = signatureService;
     }
 
+    // Create url payment
+    [Authorize]
     [HttpPost("create-payment")]
     public async Task<IActionResult> CreatePayment([FromBody] PaymentRequest paymentRequest)
     {
@@ -29,7 +32,8 @@ public class VNPayController : ControllerBase
         return Ok(new ApiResponse<string>(ErrorCode.OK, "Success", result));
     }
 
-
+    // Call back payment for VNPAY
+    [Authorize]
     [HttpGet("callback")]
     public async Task<IActionResult> Callback()
     {
@@ -42,10 +46,11 @@ public class VNPayController : ControllerBase
         return Redirect($"http://localhost:3000/payment-result?paymentStatus={paymentStatus}&signature={signature}");
     }
 
+    // Verify signature paymentStatus after payment successfuly
+    [Authorize]
     [HttpPost("verify-signature")]
     public async Task<IActionResult> VerifySignature([FromBody] SignatureRequest signatureRequest)
     {
-
         signatureRequest.Signature = signatureRequest.Signature.Replace(" ", "+");
         var isValid = _signatureService.VerifySignature(signatureRequest.data, signatureRequest.Signature);
         if (!isValid)

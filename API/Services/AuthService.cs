@@ -14,9 +14,7 @@ using System.IdentityModel.Tokens.Jwt;
 namespace API.Services;
 public class AuthService
 {
-    private const string KeyAccessToken = "Access_Token_";
     private const string KeyRefreshToken = "Refresh_Token_";
-    private const string KeyBlackListToken = "Black_List_";
     private const string KeyResetPassword = "Reset_Password_";
     private const string KeyOTP = "OTP_Email_";
     private const int AccessTokenExpiryMinutes = 15;
@@ -54,7 +52,7 @@ public class AuthService
 
         string accessToken = _jwtService.CreateToken(user);
         string refreshToken = _jwtService.CreateRefreshToken(user);
-        // stote refresh token on cookie
+        // store refresh token on cookie
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
@@ -69,10 +67,8 @@ public class AuthService
         httpContext.Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
 
         // Store tokens in Redis
-        string keyAccess = KeyAccessToken + user.UserId.ToString();
         string keyRefresh = KeyRefreshToken + user.UserId.ToString();
 
-        _redis.StringSet(keyAccess, accessToken, TimeSpan.FromMinutes(AccessTokenExpiryMinutes));
         _redis.StringSet(keyRefresh, refreshToken, TimeSpan.FromDays(RefreshTokenExpiryDays));
 
         return new AuthResponse(accessToken);
@@ -96,8 +92,6 @@ public class AuthService
         }
 
         string newAccessToken = _jwtService.CreateToken(user);
-        string keyAccess = KeyAccessToken + user.UserId.ToString();
-        _redis.StringSet(keyAccess, newAccessToken, TimeSpan.FromMinutes(AccessTokenExpiryMinutes));
 
         return new TokenResponse(newAccessToken);
     }
@@ -243,10 +237,8 @@ public class AuthService
         httpContext.Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
 
         // Store tokens in Redis
-        string keyAccess = KeyAccessToken + user.UserId.ToString();
         string keyRefresh = KeyRefreshToken + user.UserId.ToString();
 
-        _redis.StringSet(keyAccess, accessToken, TimeSpan.FromMinutes(AccessTokenExpiryMinutes));
         _redis.StringSet(keyRefresh, refreshToken, TimeSpan.FromDays(RefreshTokenExpiryDays));
 
         return new AuthResponse(accessToken);
@@ -264,5 +256,18 @@ public class AuthService
             throw new CustomException(ErrorCode.Unauthorized, "Invalid token.");
         }
         return int.Parse(nameIdClaim.Value);
+    }
+
+    // Logout
+    public async Task<bool> Logout(RefreshTokenRequest request){
+        string keyRefresh = KeyRefreshToken + request.UserId.ToString();
+        var storedToken = _redis.StringGet(keyRefresh);
+
+        if (string.IsNullOrEmpty(storedToken) || storedToken != request.RefreshToken)
+        {
+            return false;
+        }
+        await _redis.KeyDeleteAsync(keyRefresh);
+        return true;
     }
 }
