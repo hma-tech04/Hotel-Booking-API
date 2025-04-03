@@ -18,6 +18,8 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
+
+    // Login account 
     [HttpPost("login")]
     public async Task<IActionResult> LoginAsync(LoginDTO loginDTO)
     {
@@ -30,6 +32,7 @@ public class AuthController : ControllerBase
         return Ok(response);
     }
 
+    // Register a new account
     [HttpPost("register")]
     public async Task<IActionResult> AddUserAsync(UserRegisterDTO UserRegisterDTO)
     {
@@ -42,6 +45,7 @@ public class AuthController : ControllerBase
         return Ok(response);
     }
 
+    // Renew the access token when it has expired using the refresh token.
     [HttpPost("refresh-token")]
     public async Task<IActionResult> RenewToken()
     {
@@ -67,6 +71,7 @@ public class AuthController : ControllerBase
         return Ok(new ApiResponse<TokenResponse>(ErrorCode.OK, "Success", result));
     }
 
+    // Handle forgot password request
     [HttpPost("forgot-password")]
     public async Task<IActionResult> ForgotPassword(ForgotPasswordDTO forgotPasswordDTO)
     {
@@ -79,6 +84,7 @@ public class AuthController : ControllerBase
         return Ok(response.GetResponse());
     }
 
+    // Verify otp from client
     [HttpPost("verify-otp")]
     public async Task<IActionResult> VerifyOTP(VerifyOTP_DTO request)
     {
@@ -98,7 +104,9 @@ public class AuthController : ControllerBase
         }
         return Ok(response.GetResponse());
     }
-    [Authorize(Roles = "User")]
+
+    // Reset the user's password after verifying OTP or other authentication methods
+    [Authorize]
     [HttpPost("reset-password")]
     public async Task<IActionResult> ResetPassword(ResetPasswordDTO request)
     {
@@ -112,6 +120,7 @@ public class AuthController : ControllerBase
         return Ok(response);
     }
 
+    // Login account with google
     [HttpPost("login-google")]
     public async Task<IActionResult> LoginWithGoogle(GoogleLoginDTO googleLoginDTO)
     {
@@ -124,5 +133,30 @@ public class AuthController : ControllerBase
         return Ok(response);
     }
 
+    // Logout account
+    [Authorize]
+    [HttpPost("logout")]
+    public async Task<IActionResult> LogoutAccount()
+    {
+        var refreshToken = Request.Cookies["refreshToken"];
+        if (string.IsNullOrEmpty(refreshToken))
+        {
+            throw new CustomException(ErrorCode.Unauthorized, "Token is invalid or has expired.");
+        }
 
+        var userId = _authService.GetUserIdFromRefreshToken(refreshToken);
+        if (string.IsNullOrEmpty(userId.ToString()))
+        {
+            throw new CustomException(ErrorCode.Unauthorized, "Token is invalid or has expired.");
+        }
+
+        var refreshTokenRequest = new RefreshTokenRequest(userId, refreshToken);
+        if (!ModelState.IsValid)
+        {
+            throw new CustomException(ErrorCode.BadRequest, "Invalid input");
+        }
+
+        var result = await _authService.Logout(refreshTokenRequest);
+        return Ok(new ApiResponse<bool>(ErrorCode.OK, "Success", result));
+    }
 }

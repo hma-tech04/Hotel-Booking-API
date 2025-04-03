@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using API.DTOs.Response;
 using API.DTOs.EntityDTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers;
 [ApiController]
@@ -14,6 +15,8 @@ public class RoomController : ControllerBase
         _roomService = roomService ?? throw new ArgumentNullException(nameof(roomService));
     }
 
+    // Get a paginated list of rooms
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAllRoomsAsync([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
     {
@@ -22,6 +25,8 @@ public class RoomController : ControllerBase
         return Ok(response);
     }
 
+    // Get list of rooms
+    [AllowAnonymous]    
     [HttpGet("all")]
     public async Task<IActionResult> GetAllRoomsNoPagingAsync()
     {
@@ -30,6 +35,8 @@ public class RoomController : ControllerBase
         return Ok(response);
     }
 
+    // Get list of rooms by a type room
+    [AllowAnonymous]
     [HttpGet("type/{roomType}")]
     public async Task<IActionResult> GetRoomsByType(string roomType)
     {
@@ -41,6 +48,8 @@ public class RoomController : ControllerBase
         return Ok(new ApiResponse<List<RoomDTO>>(ErrorCode.OK, "Success", rooms));
     }
 
+    // Get a room by id
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetRoomById(int id)
     {
@@ -52,6 +61,8 @@ public class RoomController : ControllerBase
         return Ok(new ApiResponse<RoomDTO>(ErrorCode.OK, "Success", result));
     }
 
+    // Create a new room
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> AddRoomAsync([FromForm] RoomRequestDTO roomDTO, [FromForm] List<IFormFile>? imageFiles)
     {
@@ -60,8 +71,8 @@ public class RoomController : ControllerBase
         return Ok(response);
     }
 
-
-
+    // Update a room 
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateRoomAsync(int id, [FromForm] RoomRequestDTO roomRequestDTO, [FromForm] List<IFormFile>? imageFiles)
     {
@@ -69,6 +80,8 @@ public class RoomController : ControllerBase
         return Ok(new ApiResponse<RoomDTO>(ErrorCode.OK, "Room updated successfully", result));
     }
 
+    // Delete a room
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteRoomAsync(int id)
     {
@@ -77,6 +90,8 @@ public class RoomController : ControllerBase
         return Ok(response.GetResponse());
     }
 
+    // Check if a room is available
+    [AllowAnonymous]
     [HttpGet("isavailable/{roomId}")]
     public async Task<IActionResult> IsRoomAvailable(int roomId, [FromQuery] DateTime checkInDate, [FromQuery] DateTime checkOutDate)
     {
@@ -91,7 +106,8 @@ public class RoomController : ControllerBase
         }
     }
 
-
+    // Get available rooms from start date to end date by room type
+    [AllowAnonymous]
     [HttpGet("available")]
     public async Task<IActionResult> GetAvailableRooms([FromQuery] DateTime checkInDate, [FromQuery] DateTime checkOutDate, [FromQuery] string roomType)
     {
@@ -100,6 +116,8 @@ public class RoomController : ControllerBase
         return Ok(response);
     }
 
+    // Get available rooms
+    [AllowAnonymous]
     [HttpGet("available/all")]
     public async Task<IActionResult> GetAvailableRooms()
     {
