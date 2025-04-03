@@ -92,9 +92,14 @@ public class BookingService
         if (booking.BookingStatus == BookingStatus.Cancelled)
             throw new CustomException(ErrorCode.BadRequest, "Booking is already cancelled");
 
-        if (booking.CheckInDate < DateTime.Now)
-            throw new CustomException(ErrorCode.BadRequest, "Cannot cancel booking after check-in date");
+        // if (booking.CheckInDate < DateTime.Now)
+        //     throw new CustomException(ErrorCode.BadRequest, "Cannot cancel booking after check-in date");
 
+        var payments = await _paymentService.GetPaymentStatusByBookingId(bookingId);
+        foreach (var item in payments)
+        {
+            await _paymentService.UpdatePaymentStatus(item.PaymentId, PaymentStatus.Cancelled);
+        }
         return await _bookingRepository.CancelBookingAsync(bookingId);
     }
 

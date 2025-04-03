@@ -3,6 +3,7 @@ using API.DTOs.Request;
 using API.DTOs.Response;
 using API.DTOs.Statistics;
 using DTOs.Statistics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -21,6 +22,7 @@ public class AdminController : ControllerBase
     }
 
     // Get all users
+    [Authorize(Roles = "Admin")]
     [HttpGet("users")]
     public async Task<IActionResult> GetAllAdminAsync()
     {
@@ -31,6 +33,7 @@ public class AdminController : ControllerBase
 
 
     // Delete user by ID
+    [Authorize(Roles = "Admin")]
     [HttpDelete("users/{id}")]
     public async Task<IActionResult> DeleteUserByIDAsync(int id)
     {
@@ -40,6 +43,7 @@ public class AdminController : ControllerBase
     }
 
     // Update role user
+    [Authorize(Roles = "Admin")]
     [HttpPut("users/{id}/role")]
     public async Task<IActionResult> UpdateRoleUserAsync(int id, UpdateUserRoleDTO updateUserRoleDTO)
     {
@@ -50,8 +54,10 @@ public class AdminController : ControllerBase
         var result = await _userAdminService.UpdateRoleUserAsync(id, updateUserRoleDTO);
         ApiResponse<UserDTO> response = new ApiResponse<UserDTO>(ErrorCode.OK, "Success", result);
         return Ok(response);
-    }
+    }   
 
+    // Get booking statistics within a specified time range
+    [Authorize(Roles = "Admin")]
     [HttpGet("statistics/bookings")]
     public async Task<IActionResult> RetrieveBookingStats(DateRangeDto dateRangeDto)
     {
@@ -60,6 +66,8 @@ public class AdminController : ControllerBase
         return Ok(response);
     }
 
+    // Get revenue statistics by month
+    [Authorize(Roles = "Admin")]
     [HttpGet("statistics/revenue/month")]
     public async Task<IActionResult> GetRevenueMonth(MonthlyRevenueRequestDto requestDto)
     {
@@ -68,6 +76,8 @@ public class AdminController : ControllerBase
         return Ok(response);
     }
 
+    // Get total revenue statistics
+    [Authorize(Roles = "Admin")]
     [HttpGet("statistics/revenue")]
     public async Task<IActionResult> GetTotalRevenue()
     {
@@ -76,6 +86,8 @@ public class AdminController : ControllerBase
         return Ok(response);
     }
 
+    // Check rooms not checked-in by phone number
+    [Authorize(Roles = "Admin")]
     [HttpPost("bookings/unchecked")]
     public async Task<IActionResult> GetUncheckedBookingsByPhoneNumber(PhoneNumberRequestDto requestDto)
     {
