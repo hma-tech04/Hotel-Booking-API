@@ -16,7 +16,7 @@ public class RoomController : ControllerBase
     }
 
     // Get a paginated list of rooms
-    [Authorize]
+    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> GetAllRoomsAsync([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
     {

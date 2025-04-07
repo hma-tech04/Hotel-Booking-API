@@ -83,7 +83,9 @@ public class BookingRepository : IBookingRepository
     {
         return await _context.Bookings
         .Include(b => b.User)
-        .Where(b => b.ActualCheckInTime == null && b.User.PhoneNumber == requestDto.PhoneNumber && b.CheckInDate <= DateTime.Now && b.BookingStatus != BookingStatus.Cancelled)
+        .Where(b => b.ActualCheckInTime == null 
+            && b.User.PhoneNumber == requestDto.PhoneNumber 
+            && b.BookingStatus != BookingStatus.Cancelled)
         .ToListAsync();
     }
 
