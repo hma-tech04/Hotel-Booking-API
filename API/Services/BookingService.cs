@@ -4,10 +4,8 @@ using API.Models;
 using API.Repositories;
 using AutoMapper;
 using API.Enum;
-using Microsoft.Identity.Client;
 using DTOs.Statistics;
 using API.DTOs.Statistics;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 public class BookingService
 {
@@ -92,8 +90,8 @@ public class BookingService
         if (booking.BookingStatus == BookingStatus.Cancelled)
             throw new CustomException(ErrorCode.BadRequest, "Booking is already cancelled");
 
-        // if (booking.CheckInDate < DateTime.Now)
-        //     throw new CustomException(ErrorCode.BadRequest, "Cannot cancel booking after check-in date");
+        if (booking.CheckInDate < DateTime.Now)
+            throw new CustomException(ErrorCode.BadRequest, "Cannot cancel booking after check-in date");
 
         var payments = await _paymentService.GetPaymentStatusByBookingId(bookingId);
         foreach (var item in payments)
@@ -158,4 +156,8 @@ public class BookingService
         return _mapper.Map<List<BookingDTO>>(result);
     }
 
+    public async Task<List<BookingDTO>> GetUncheckedOutBookingsByPhoneNumber(PhoneNumberRequestDto requestDto){
+        var result = await _bookingRepository.GetUncheckOutBookingsByPhoneNumber(requestDto);
+        return _mapper.Map<List<BookingDTO>>(result);
+    }
 }

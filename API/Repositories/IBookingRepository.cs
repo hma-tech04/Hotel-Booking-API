@@ -12,4 +12,5 @@ public interface IBookingRepository
     Task<List<Booking>> GetAllBooking();
     Task<List<Booking>> RetrieveBookingStats(DateTime start, DateTime end);
     Task<List<Booking>> GetUncheckedInBookingsByPhoneNumber(PhoneNumberRequestDto requestDto);
+    Task<List<Booking>> GetUncheckOutBookingsByPhoneNumber(PhoneNumberRequestDto requestDto);
 }

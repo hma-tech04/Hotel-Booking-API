@@ -22,7 +22,7 @@ public class AdminController : ControllerBase
     }
 
     // Get all users
-    [Authorize(Roles = "Admin")]
+    [AllowAnonymous]
     [HttpGet("users")]
     public async Task<IActionResult> GetAllAdminAsync()
     {
@@ -33,7 +33,7 @@ public class AdminController : ControllerBase
 
 
     // Delete user by ID
-    [Authorize(Roles = "Admin")]
+    [AllowAnonymous]
     [HttpDelete("users/{id}")]
     public async Task<IActionResult> DeleteUserByIDAsync(int id)
     {
@@ -68,7 +68,7 @@ public class AdminController : ControllerBase
 
     // Get revenue statistics by month
     [Authorize(Roles = "Admin")]
-    [HttpGet("statistics/revenue/month")]
+    [HttpPost("statistics/revenue/month")]
     public async Task<IActionResult> GetRevenueMonth(MonthlyRevenueRequestDto requestDto)
     {
         var revenue = await _paymentService.RetrieveMonthlyRevenue(requestDto);
@@ -96,6 +96,20 @@ public class AdminController : ControllerBase
             throw new CustomException(ErrorCode.InvalidData, "Phone number must be between 10 and 15 digits.");
         }
         var result = await _bookingService.GetUncheckedInBookingsByPhoneNumber(requestDto);
+        ApiResponse<List<BookingDTO>> response = new ApiResponse<List<BookingDTO>>(ErrorCode.OK, "Success", result);
+        return Ok(response);
+    }
+
+    // Check rooms not checked-out by phone number
+    [Authorize(Roles = "Admin")]
+    [HttpPost("bookings/uncheckedout")]
+    public async Task<IActionResult> GetUncheckedOutBookingsByPhoneNumber(PhoneNumberRequestDto requestDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            throw new CustomException(ErrorCode.InvalidData, "Phone number must be between 10 and 15 digits.");
+        }
+        var result = await _bookingService.GetUncheckedOutBookingsByPhoneNumber(requestDto);
         ApiResponse<List<BookingDTO>> response = new ApiResponse<List<BookingDTO>>(ErrorCode.OK, "Success", result);
         return Ok(response);
     }

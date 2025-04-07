@@ -79,10 +79,23 @@ public class BookingRepository : IBookingRepository
             .ToListAsync();
     }
 
-    public async Task<List<Booking>> GetUncheckedInBookingsByPhoneNumber(PhoneNumberRequestDto requestDto){
+    public async Task<List<Booking>> GetUncheckedInBookingsByPhoneNumber(PhoneNumberRequestDto requestDto)
+    {
         return await _context.Bookings
         .Include(b => b.User)
-        .Where(b => b.ActualCheckInTime == null && b.User.PhoneNumber == requestDto.PhoneNumber)
+        .Where(b => b.ActualCheckInTime == null && b.User.PhoneNumber == requestDto.PhoneNumber && b.CheckInDate <= DateTime.Now && b.BookingStatus != BookingStatus.Cancelled)
         .ToListAsync();
+    }
+
+    public async Task<List<Booking>> GetUncheckOutBookingsByPhoneNumber(PhoneNumberRequestDto requestDto)
+    {
+        return await _context.Bookings
+            .Include(b => b.User)
+            .Where(b => b.ActualCheckOutTime == null 
+                    && b.ActualCheckInTime != null
+                    && b.User.PhoneNumber == requestDto.PhoneNumber
+                    && b.BookingStatus != BookingStatus.Cancelled)
+            .ToListAsync();
+
     }
 }
