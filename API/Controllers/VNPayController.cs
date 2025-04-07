@@ -33,7 +33,6 @@ public class VNPayController : ControllerBase
     }
 
     // Call back payment for VNPAY
-    [Authorize]
     [HttpGet("callback")]
     public async Task<IActionResult> Callback()
     {
@@ -42,7 +41,7 @@ public class VNPayController : ControllerBase
         var result = await _vnpayService.ProcessPaymentResponse(vnp_Params);
         string paymentStatus = result.IsSuccess ? "Payment successfully" : "Payment Failed";
         string signature = _signatureService.GenerateSignature(paymentStatus);
-
+        Console.WriteLine("Payment status: " + paymentStatus);
         return Redirect($"http://localhost:3000/payment-result?paymentStatus={paymentStatus}&signature={signature}");
     }
 

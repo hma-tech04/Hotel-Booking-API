@@ -106,18 +106,12 @@ public class VNPayService
         string paymentMessage = responseCode == "00" ? "Payment successful" : "Payment failed";
         bool isPaymentSuccessful = isValid && responseCode == "00";
 
-        if (!queryParams.TryGetValue("vnp_TxnRef", out string? bookingId) || !int.TryParse(bookingId, out int bookingIdInt))
-            return new PaymentResponse { IsSuccess = false, Message = "Invalid booking ID" };
-
-        // Update payment and booking status to completed or failed
-
         var status = isPaymentSuccessful ? BookingStatus.Confirmed : BookingStatus.Cancelled;
         var statusPayment = isPaymentSuccessful ? PaymentStatus.Completed : PaymentStatus.Failed;
-        Console.WriteLine("status: ", status.ToString());
         string orderInfoJson = queryParams["vnp_OrderInfo"];
         using JsonDocument doc = JsonDocument.Parse(orderInfoJson);
         int paymentId = doc.RootElement.GetProperty("PaymentId").GetInt32();
-
+        int bookingIdInt = int.Parse(doc.RootElement.GetProperty("OrderId").GetString() ?? string.Empty);
         var isUpdatedPaymentStatus = await _paymentService.UpdatePaymentStatus(paymentId, statusPayment);
         
         var isUpdated = await _bookingService.UpdateBookingStatusAsync(bookingIdInt, status);

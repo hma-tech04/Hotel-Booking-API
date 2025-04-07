@@ -18,7 +18,6 @@ public class BookingController : ControllerBase
     }
 
     // Create a new booking
-    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> AddBookingAsync(BookingRequest request)
     {

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "NHJ19kHnaVGenighquqlc6mc4ZovHtgP+SvjYmasOtg=",
+  "Hash": "pYS+hQYx942zP06uSsNWcVrov6Jz0UMqjtXydM5Cgdo=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "API/wwwroot",
       "Source": "API",
-      "ContentRoot": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/",
+      "ContentRoot": "/Users/huynhminhanh/Documents/HotelBooking/Hotel-Booking-API/API/wwwroot/",
       "BasePath": "_content/API",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg",
+      "Identity": "/Users/huynhminhanh/Documents/HotelBooking/Hotel-Booking-API/API/wwwroot/images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg",
       "SourceId": "API",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/",
+      "ContentRoot": "/Users/huynhminhanh/Documents/HotelBooking/Hotel-Booking-API/API/wwwroot/",
       "BasePath": "_content/API",
       "RelativePath": "images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -38,10 +38,10 @@
       "OriginalItemSpec": "wwwroot/images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg"
     },
     {
-      "Identity": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg",
+      "Identity": "/Users/huynhminhanh/Documents/HotelBooking/Hotel-Booking-API/API/wwwroot/images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg",
       "SourceId": "API",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/",
+      "ContentRoot": "/Users/huynhminhanh/Documents/HotelBooking/Hotel-Booking-API/API/wwwroot/",
       "BasePath": "_content/API",
       "RelativePath": "images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -62,7 +62,7 @@
   "Endpoints": [
     {
       "Route": "images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.7tgc4ou1l5.jpg",
-      "AssetFile": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg",
+      "AssetFile": "/Users/huynhminhanh/Documents/HotelBooking/Hotel-Booking-API/API/wwwroot/images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -83,7 +83,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 01 Apr 2025 17:08:35 GMT"
+          "Value": "Mon, 07 Apr 2025 08:21:10 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -107,7 +107,7 @@
     },
     {
       "Route": "images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg",
-      "AssetFile": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg",
+      "AssetFile": "/Users/huynhminhanh/Documents/HotelBooking/Hotel-Booking-API/API/wwwroot/images/8f083338-9681-4d40-8a83-a39827fbfd41_lengkeng-homestay-da-lat-1.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -128,7 +128,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 01 Apr 2025 17:08:35 GMT"
+          "Value": "Mon, 07 Apr 2025 08:21:10 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -144,7 +144,7 @@
     },
     {
       "Route": "images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.8zj8c1frn8.jpg",
-      "AssetFile": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg",
+      "AssetFile": "/Users/huynhminhanh/Documents/HotelBooking/Hotel-Booking-API/API/wwwroot/images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -165,7 +165,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 01 Apr 2025 17:08:34 GMT"
+          "Value": "Mon, 07 Apr 2025 08:21:10 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -189,7 +189,7 @@
     },
     {
       "Route": "images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg",
-      "AssetFile": "/Users/huynhminhanh/Documents/Final project of the course/Hotel-Booking-API/API/wwwroot/images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg",
+      "AssetFile": "/Users/huynhminhanh/Documents/HotelBooking/Hotel-Booking-API/API/wwwroot/images/eb293c37-3e8c-46ca-af06-9421256faabd_anh1.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -210,7 +210,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 01 Apr 2025 17:08:34 GMT"
+          "Value": "Mon, 07 Apr 2025 08:21:10 GMT"
         },
         {
           "Name": "Cache-Control",
