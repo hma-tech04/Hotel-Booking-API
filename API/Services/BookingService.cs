@@ -128,6 +128,11 @@ public class BookingService
             throw new CustomException(ErrorCode.BadRequest, $"Please payment booking before proceeding to check in.");
         }
         booking.ActualCheckInTime = DateTime.Now;
+
+        Room room = await _roomRepository.GetRoomByIDAsync(booking.RoomId)
+            ?? throw new CustomException(ErrorCode.NotFound, $"Room not found with ID {booking.RoomId}");
+        room.IsAvailable = false;
+        await _roomRepository.UpdateRoomAsync(room);
         var bookingCheckedIn = await _bookingRepository.UpdateBookingAsync(booking);
         return bookingCheckedIn;
     }
@@ -140,6 +145,10 @@ public class BookingService
         if(booking.ActualCheckInTime == null){
             throw new CustomException(ErrorCode.BadRequest, "Please check in before proceeding to check out.");
         }
+        Room room = await _roomRepository.GetRoomByIDAsync(booking.RoomId)
+            ?? throw new CustomException(ErrorCode.NotFound, $"Room not found with ID {booking.RoomId}");
+        room.IsAvailable = true;
+        await _roomRepository.UpdateRoomAsync(room);
         booking.ActualCheckOutTime = DateTime.Now;
         booking.BookingStatus = BookingStatus.Completed;
         var bookingCheckedIn = await _bookingRepository.UpdateBookingAsync(booking);
