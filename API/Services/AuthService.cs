@@ -65,9 +65,7 @@ public class AuthService
         // Set the cookie in the response
         var httpContext = _httpContextAccessor?.HttpContext ?? throw new CustomException(ErrorCode.InternalServerError, "HttpContext is not available.");
         httpContext.Response.Cookies.Delete("refreshToken");
-
         httpContext.Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
-        Console.WriteLine($"Set-Cookie refreshToken = {refreshToken.ToString()}");
 
         // Store tokens in Redis
         string keyRefresh = KeyRefreshToken + user.UserId.ToString();
