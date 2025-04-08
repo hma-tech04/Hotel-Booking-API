@@ -56,15 +56,18 @@ public class AuthService
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
-            Secure = true,
             SameSite = SameSiteMode.None,
+            Secure = true,
+            IsEssential = true,
+            Path = "/",
             Expires = DateTimeOffset.UtcNow.AddDays(RefreshTokenExpiryDays)
         };
-
         // Set the cookie in the response
         var httpContext = _httpContextAccessor?.HttpContext ?? throw new CustomException(ErrorCode.InternalServerError, "HttpContext is not available.");
         httpContext.Response.Cookies.Delete("refreshToken");
+
         httpContext.Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
+        Console.WriteLine($"Set-Cookie refreshToken = {refreshToken.ToString()}");
 
         // Store tokens in Redis
         string keyRefresh = KeyRefreshToken + user.UserId.ToString();
@@ -226,8 +229,10 @@ public class AuthService
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
-            Secure = true,
             SameSite = SameSiteMode.None,
+            Secure = true,
+            IsEssential = true,
+            Path = "/",
             Expires = DateTimeOffset.UtcNow.AddDays(RefreshTokenExpiryDays)
         };
 
@@ -259,7 +264,8 @@ public class AuthService
     }
 
     // Logout
-    public async Task<bool> Logout(RefreshTokenRequest request){
+    public async Task<bool> Logout(RefreshTokenRequest request)
+    {
         string keyRefresh = KeyRefreshToken + request.UserId.ToString();
         var storedToken = _redis.StringGet(keyRefresh);
 

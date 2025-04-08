@@ -108,11 +108,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", policy =>
     {
-        policy.WithOrigins("http://localhost:3000") 
+        policy.WithOrigins("https://localhost:3000") 
               .AllowAnyMethod()
-              .AllowAnyHeader();
+              .AllowAnyHeader()
+              .AllowCredentials();
     });
 });
+
 
 
 // Config HttpContextAccessor
@@ -124,7 +126,6 @@ var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors("AllowSpecificOrigin");
-
 // Middleware xác thực & ủy quyền
 app.UseStaticFiles();
 app.UseAuthentication();

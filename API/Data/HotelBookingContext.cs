@@ -90,7 +90,7 @@ public partial class HotelBookingContext : DbContext
         {
             entity.HasKey(e => e.RoomId).HasName("PK__Rooms__32863939B4B84EC6");
 
-            entity.Property(e => e.Description).HasColumnType("text")
+            entity.Property(e => e.Description).HasColumnType("NVARCHAR(MAX)")
                 .IsUnicode(true);
             entity.Property(e => e.IsAvailable).HasDefaultValue(true);
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");

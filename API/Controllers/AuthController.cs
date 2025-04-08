@@ -50,12 +50,15 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> RenewToken()
     {
         var refreshToken = Request.Cookies["refreshToken"];
+        Console.WriteLine($"RefreshToken: {refreshToken}");
         if (string.IsNullOrEmpty(refreshToken))
         {
             throw new CustomException(ErrorCode.Unauthorized, "Token is invalid or has expired.");
         }
 
         var userId = _authService.GetUserIdFromRefreshToken(refreshToken);
+        Console.WriteLine($"UserId: {userId}");
+        
         if (string.IsNullOrEmpty(userId.ToString()))
         {
             throw new CustomException(ErrorCode.Unauthorized, "Token is invalid or has expired.");
@@ -66,7 +69,7 @@ public class AuthController : ControllerBase
         {
             throw new CustomException(ErrorCode.BadRequest, "Invalid input");
         }
-
+        
         var result = await _authService.RenewAccessToken(refreshTokenRequest);
         return Ok(new ApiResponse<TokenResponse>(ErrorCode.OK, "Success", result));
     }
