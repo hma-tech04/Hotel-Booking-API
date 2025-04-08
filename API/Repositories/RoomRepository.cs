@@ -132,13 +132,18 @@ namespace API.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Room?> GetAvailableRoomsAsync(int id, DateTime checkInDate, DateTime checkOutDate)
+        public async Task<Room?> GetAvailableRoomAsync(int id, DateTime checkInDate, DateTime checkOutDate)
         {
             return await _context.Rooms
                 .Include(r => r.Bookings)
                 .Where(r => r.RoomId == id)
-                .FirstOrDefaultAsync(r => !r.Bookings.Any(b => checkInDate < b.CheckOutDate && checkOutDate > b.CheckInDate));
+                .FirstOrDefaultAsync(r => !r.Bookings.Any(b =>
+                    (b.BookingStatus == BookingStatus.Confirmed || b.BookingStatus == BookingStatus.Pending) &&
+                    checkInDate < b.CheckOutDate &&
+                    checkOutDate > b.CheckInDate
+                ));
         }
+
         public async Task<List<string>> GetRoomImageUrlsAsync(int roomId)
         {
             return await _context.RoomImages
