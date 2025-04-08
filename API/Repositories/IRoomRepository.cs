@@ -15,6 +15,6 @@ public interface IRoomRepository
     Task DeleteRoomImagesAsync(int roomId);
     Task<List<Room>> GetAvailableRoomsAsync(DateTime checkInDate, DateTime checkOutDate, string roomType);
     Task<List<Room>> GetAvailableRoomsAsync(DateTime checkInDate, DateTime checkOutDate);
-    Task<Room?> GetAvailableRoomsAsync(int id, DateTime checkInDate, DateTime checkOutDate);
+    Task<Room?> GetAvailableRoomAsync(int id, DateTime checkInDate, DateTime checkOutDate);
     Task<List<string>> GetRoomImageUrlsAsync(int roomId);
 }

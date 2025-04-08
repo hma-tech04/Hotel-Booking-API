@@ -247,7 +247,7 @@ public class RoomService
             throw new CustomException(ErrorCode.NotFound, $"No room found with ID: {roomId}");
         }
 
-        var availableRoom = await _roomRepository.GetAvailableRoomsAsync(roomId, checkInDate, checkOutDate);
+        var availableRoom = await _roomRepository.GetAvailableRoomAsync(roomId, checkInDate, checkOutDate);
         return availableRoom != null;
     }
 
