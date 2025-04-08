@@ -58,7 +58,8 @@ public class BookingService
         var booking = _mapper.Map<Booking>(bookingRequest);
 
         booking.BookingStatus = BookingStatus.Pending;
-
+        room.IsAvailable = false;
+        await _roomRepository.UpdateRoomAsync(room);
         var newBooking = await _bookingRepository.AddBookingAsync(booking);
         return _mapper.Map<BookingDTO>(newBooking);
     }
