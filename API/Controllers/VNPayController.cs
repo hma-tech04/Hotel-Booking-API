@@ -42,7 +42,7 @@ public class VNPayController : ControllerBase
         string paymentStatus = result.IsSuccess ? "Payment successfully" : "Payment Failed";
         string signature = _signatureService.GenerateSignature(paymentStatus);
         Console.WriteLine("Payment status: " + paymentStatus);
-        return Redirect($"http://localhost:3000/payment-result?paymentStatus={paymentStatus}&signature={signature}");
+        return Redirect($"https://localhost:3000/payment-result?paymentStatus={paymentStatus}&signature={signature}");
     }
 
     // Verify signature paymentStatus after payment successfuly

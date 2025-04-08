@@ -10,7 +10,7 @@ public class RoomRequestDTO
 
     public string? Description { get; set; }
 
-    public required IFormFile ThumbnailUrl { get; set; }
+    public IFormFile? ThumbnailUrl { get; set; }
 
     public bool? IsAvailable { get; set; }
 

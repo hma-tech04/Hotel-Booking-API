@@ -103,61 +103,61 @@ public class RoomService
 
     // Update existing room
     public async Task<RoomDTO> UpdateRoomAsync(int id, RoomRequestDTO roomRequestDTO, List<IFormFile>? imageFiles)
+{
+    using var transaction = await _context.Database.BeginTransactionAsync();
+
+    try
     {
-        using var transaction = await _context.Database.BeginTransactionAsync();
-
-        try
+        var existingRoom = await _roomRepository.GetRoomByIDAsync(id);
+        if (existingRoom == null)
         {
-            var existingRoom = await _roomRepository.GetRoomByIDAsync(id);
-            if (existingRoom == null)
-            {
-                throw new CustomException(ErrorCode.NotFound, $"No room found with ID: {id}");
-            }
+            throw new CustomException(ErrorCode.NotFound, $"No room found with ID: {id}");
+        }
 
-            // Save the images and check if there are any
-            var roomImages = imageFiles != null ? await SaveImagesAsync(id, imageFiles) : new List<RoomImage>();
+        // Nếu có ảnh mới thì lưu, nếu không giữ nguyên ảnh cũ
+        List<RoomImage> roomImages = new List<RoomImage>();
+        string thumbnailUrl = existingRoom.ThumbnailUrl;
 
-            // Ensure roomDTO is properly created with the room images
-            var roomDTO = new RoomDTO
-            {
-                RoomType = roomRequestDTO.RoomType,
-                ThumbnailUrl = await SaveImageAsync(roomRequestDTO.ThumbnailUrl),
-                RoomImages = roomImages.Select(image => image.ImageUrl).ToList(),
-                Price = roomRequestDTO.Price,
-                Description = roomRequestDTO.Description,
-                IsAvailable = roomRequestDTO.IsAvailable ?? true // Default to true if null
-            };
-
-            // Update existing room with new data
-            existingRoom = _mapper.Map<Room>(roomDTO);
-            existingRoom.RoomId = id;
-
-            // Delete old room images and add the new ones
+        if (imageFiles != null && imageFiles.Any())
+        {
+            // Xoá ảnh cũ
             await _roomRepository.DeleteRoomImagesAsync(id);
 
-            if (roomImages.Any())
-            {
-                // Ensure that thumbnail is set if there are room images
-                existingRoom.ThumbnailUrl = roomImages.First().ImageUrl;
-                await _roomRepository.AddRoomImagesAsync(roomImages);
-            }
+            // Lưu ảnh mới
+            roomImages = await SaveImagesAsync(id, imageFiles);
 
-            var updatedRoom = await _roomRepository.UpdateRoomAsync(existingRoom);
-            if (updatedRoom == null)
-            {
-                throw new CustomException(ErrorCode.NotFound, $"No room found with ID: {id}");
-            }
+            // Cập nhật thumbnail mới
+            thumbnailUrl = roomImages.First().ImageUrl;
 
-            await transaction.CommitAsync();
-
-            return _mapper.Map<RoomDTO>(updatedRoom);
+            // Thêm ảnh vào DB
+            await _roomRepository.AddRoomImagesAsync(roomImages);
         }
-        catch (Exception)
-        {
-            await transaction.RollbackAsync();
-            throw;
-        }
+
+        // Cập nhật thông tin phòng
+        existingRoom.RoomType = roomRequestDTO.RoomType;
+        existingRoom.ThumbnailUrl = thumbnailUrl;
+        existingRoom.Price = roomRequestDTO.Price;
+        existingRoom.Description = roomRequestDTO.Description;
+        existingRoom.IsAvailable = roomRequestDTO.IsAvailable ?? true;
+
+        var updatedRoom = await _roomRepository.UpdateRoomAsync(existingRoom);
+        await transaction.CommitAsync();
+
+        // Trả về DTO bao gồm cả ảnh
+        var roomDTO = _mapper.Map<RoomDTO>(updatedRoom);
+        roomDTO.RoomImages = roomImages.Any()
+            ? roomImages.Select(img => img.ImageUrl).ToList()
+            : await _roomRepository.GetRoomImageUrlsAsync(id); // giữ ảnh cũ nếu không upload mới
+
+        return roomDTO;
     }
+    catch (Exception)
+    {
+        await transaction.RollbackAsync();
+        throw;
+    }
+}
+
 
     // Save thumbnail image asynchronously
     private async Task<string> SaveImageAsync(IFormFile thumbnailUrl)
@@ -208,9 +208,9 @@ public class RoomService
     }
 
     // Get available rooms (no date filtering)
-    public async Task<List<RoomDTO>> GetAvailableRoomsAsync()
+    public async Task<List<RoomDTO>> GetAvailableRoomsAsync(DateTime checkInDate, DateTime checkOutDate)
     {
-        var rooms = await _roomRepository.GetAvailableRoomsAsync();
+        var rooms = await _roomRepository.GetAvailableRoomsAsync(checkInDate, checkOutDate);
         return _mapper.Map<List<RoomDTO>>(rooms);
     }
 

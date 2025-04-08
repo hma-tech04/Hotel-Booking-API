@@ -1,4 +1,5 @@
 using API.Data;
+using API.Enum;
 using API.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -118,13 +119,19 @@ namespace API.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Room>> GetAvailableRoomsAsync()
+        public async Task<List<Room>> GetAvailableRoomsAsync(DateTime checkInDate, DateTime checkOutDate)
         {
             return await _context.Rooms
+                .Include(r => r.Bookings)
                 .Include(r => r.RoomImages)
-                .Where(r => r.IsAvailable == true)
+                .Where(r => r.IsAvailable == true &&
+                            !r.Bookings.Any(b =>
+                                (b.BookingStatus == BookingStatus.Confirmed || b.BookingStatus == BookingStatus.Pending) &&
+                                checkInDate < b.CheckOutDate &&
+                                checkOutDate > b.CheckInDate))
                 .ToListAsync();
         }
+
         public async Task<Room?> GetAvailableRoomsAsync(int id, DateTime checkInDate, DateTime checkOutDate)
         {
             return await _context.Rooms
@@ -132,6 +139,14 @@ namespace API.Repositories
                 .Where(r => r.RoomId == id)
                 .FirstOrDefaultAsync(r => !r.Bookings.Any(b => checkInDate < b.CheckOutDate && checkOutDate > b.CheckInDate));
         }
+        public async Task<List<string>> GetRoomImageUrlsAsync(int roomId)
+        {
+            return await _context.RoomImages
+                                 .Where(img => img.RoomId == roomId)
+                                 .Select(img => img.ImageUrl)
+                                 .ToListAsync();
+        }
+
 
     }
 }

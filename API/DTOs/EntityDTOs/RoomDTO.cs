@@ -10,7 +10,7 @@ public class RoomDTO
 
     public string? Description { get; set; }
 
-    public required string ThumbnailUrl { get; set; }
+    public string? ThumbnailUrl { get; set; }
 
     public bool? IsAvailable { get; set; }
 

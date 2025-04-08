@@ -119,9 +119,9 @@ public class RoomController : ControllerBase
     // Get available rooms
     [AllowAnonymous]
     [HttpGet("available/all")]
-    public async Task<IActionResult> GetAvailableRooms()
+    public async Task<IActionResult> GetAvailableRooms([FromQuery] DateTime checkInDate, [FromQuery] DateTime checkOutDate)
     {
-        var result = await _roomService.GetAvailableRoomsAsync();
+        var result = await _roomService.GetAvailableRoomsAsync(checkInDate, checkOutDate);
         ApiResponse<List<RoomDTO>> response = new ApiResponse<List<RoomDTO>>(ErrorCode.OK, "Success", result);
         return Ok(response);
     }
