@@ -137,11 +137,13 @@ namespace API.Repositories
             return await _context.Rooms
                 .Include(r => r.Bookings)
                 .Where(r => r.RoomId == id)
-                .FirstOrDefaultAsync(r => !r.Bookings.Any(b =>
-                    (b.BookingStatus == BookingStatus.Confirmed || b.BookingStatus == BookingStatus.Pending) &&
-                    checkInDate < b.CheckOutDate &&
-                    checkOutDate > b.CheckInDate
-                ));
+                .FirstOrDefaultAsync(r =>
+                    !r.Bookings.Any(b =>
+                        (b.BookingStatus == BookingStatus.Confirmed || b.BookingStatus == BookingStatus.Pending)
+                        && checkInDate < b.CheckOutDate
+                        && checkOutDate > b.CheckInDate
+                    )
+                );
         }
 
         public async Task<List<string>> GetRoomImageUrlsAsync(int roomId)

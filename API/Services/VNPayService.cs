@@ -4,6 +4,7 @@ using System.Text.Json;
 using API.DTOs.EntityDTOs;
 using API.DTOs.PaymentDTO;
 using API.Enum;
+using API.Models;
 
 
 public class VNPayService
@@ -15,10 +16,12 @@ public class VNPayService
     private readonly string _vnpReturnUrl;
     private readonly IBookingRepository _bookingService;
     private readonly PaymentService _paymentService;
+    private readonly IRoomRepository _roomService;
     private readonly string _timeZoneID;
 
-    public VNPayService(IConfiguration configuration, IBookingRepository bookingRepository, PaymentService paymentService)
+    public VNPayService(IRoomRepository roomService, IConfiguration configuration, IBookingRepository bookingRepository, PaymentService paymentService)
     {
+        _roomService = roomService;
         _configuration = configuration;
         _bookingService = bookingRepository;
         _vnpUrl = _configuration["VNPay:BaseUrl"] ?? throw new InvalidOperationException("Missing VNPay BaseUrl.");
@@ -113,7 +116,12 @@ public class VNPayService
         int paymentId = doc.RootElement.GetProperty("PaymentId").GetInt32();
         int bookingIdInt = int.Parse(doc.RootElement.GetProperty("OrderId").GetString() ?? string.Empty);
         var isUpdatedPaymentStatus = await _paymentService.UpdatePaymentStatus(paymentId, statusPayment);
-        
+        if (!isPaymentSuccessful){
+            Booking booking = await _bookingService.GetBookingByIdAsync(bookingIdInt) ?? throw new CustomException(ErrorCode.NotFound, $"Booking not found with id {bookingIdInt}");
+            Room room = await _roomService.GetRoomByIDAsync(booking.RoomId) ?? throw new CustomException(ErrorCode.NotFound, $"Room not found with id {booking.RoomId}");
+            room.IsAvailable = true;
+            await _roomService.UpdateRoomAsync(room);
+        }
         var isUpdated = await _bookingService.UpdateBookingStatusAsync(bookingIdInt, status);
 
         return new PaymentResponse { IsSuccess = isUpdated && isUpdatedPaymentStatus && isPaymentSuccessful, Message = isUpdated ? paymentMessage : "Failed to update booking status" };
